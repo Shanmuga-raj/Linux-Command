@@ -1,0 +1,345 @@
+								  
+								  
+								  
+								  LINUX COMMANDS
+								  ``````````````
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+								CREATE-MODIFY-REMOVE:
+								`````````````````````
+
+DIRECTORY:
+``````````
+	|
+	|--> Print Working Directory					-		pwd
+	|--> Change Directory						-		cd
+	|--> Go To Previous Directory					-		cd ..
+	|--> Change Directory (Relative path)				-		cd ../xxx
+	|--> Change Directory (Absolute path)				-		cd /xxx (or) cd ~/xxx
+	|--> Make Directory						-		mkdir xxx
+	|--> Directory Name With Space					-		mkdir x\ x\ x (or) mkdir 'x x x'
+	|--> Copy (xxx File to Directory yyy)				-		cp xxx ~/yyy
+	|--> Recursive Copy (Dir xxx to Dir yyy)			-		cp -r xxx ~/yyy
+	|--> Copy Multiple file to Directory yyy			-		cp *.txt ~/yyy
+	|--> Move (xxx File to Directory yyy)				-		mv xxx ~/yyy
+	|--> Move Multiple file to Directory yyy			-		mv *.txt ~/yyy
+	|--> Remove Directory						-		rm -r xxx (or) rmdir xxx
+
+
+FILE:
+`````
+	|
+	|--> Create a File						-		touch xxx
+	|--> Create Multiple File					-		touch A{a..z}.txt
+	|--> List File in Directory					-		ls (or) dir ( l - additional information, a- hidden files)
+	|--> Display Document						-		cat xxx.txt
+	|--> Display Larger Document					-		less xxx.txt
+	|--> Display First 10 Lines Of File				-		head xxx.txt
+	|--> Display Last 10 Lines Of File				-		tail xxx.txt
+	|--> Edit File (xxx.txt)					-		nano xxx.txt (or) gedit xxx.txt
+	|--> Overwrite Content In File					-		echo text > xxx.txt
+	|--> Append Content To File					-		echo text >> xxx.txt
+	|--> Standard Input	From File				-		cat < xxx.txt (same as cat command)
+	|--> Print The Type of File					-		file xxx
+	|--> Search word in File (xxx.txt)				-		grep word xxx.txt
+	|--> Count Character in File					-		wc xxx.txt
+	|--> Rename File						-		mv xxx.txt yyy.txt
+	|--> Create Softlink of File					-		ln -s originalfname newfname (copy files without additional disk usage. 
+	|												Deleting file will delete every file)
+	|--> Create Hardlink of File					-		ln originalfname newfname (copy files without additional disk usage. 
+	|												Deleting copy wont affect other file)
+	|--> Remove File						-		rm xxx
+	|
+	|
+	|--> PERMISSION:
+	|    ```````````
+	|	|
+	|	|--> Change Mode					-		chmod
+	|	|--> Change Owner					-		chown
+	|	|--> Change Group					-		chgrp
+	|	|--> Add Read Permission				-		chmod u+x filename
+	|	|--> Remove Read Permission				-		chmod u-x filename
+	|	|--> Change Owner Of The File				-		sudo chown usrname filename
+	|	|--> Change Group Of The File				-		sudo chgrp groupname filename
+	|				
+	|			NOTE:
+	|			`````
+	|				(u - Owner,	g - Group,	o - Other)
+	|				(1 - Execute,	2 - Write,	4 - Read)
+	|
+	|
+	|--> ARCHIVE-UNPACK:
+	|    ```````````````
+	|	|
+	|	|--> List Archive Files					-		tar -tf fname.tar (t - list content)
+	|	|--> Create an Archive					-		tar -cvf fname.tar xxx yyy zzz (cf - create, v - verbose)
+	|	|--> Create an Archive of All files			-		tar -cvf fname.tar *
+	|	|--> Add Files to Existing archive			-		tar -rf fname.tar xxx
+	|	|--> Overwrite the Archieve File			-		tar -cvf dir.tar dir1 dir2
+	|	|--> Archive With Compression				-		tar -cvjf fname.tar.bz2 xxx yyy zzz (j - bzip2, z - gzip, Z - compress)
+	|	|--> Unpack Archive File				-		tar -xvf fname.tar (xf - extract, v - verbose)
+	|	|--> Unpack With Decompression				-		tar -xjvf fname.tar.bz2 (j - bzip2, z - gzip)
+	|	|--> Delete Files From Archive				-		tar -f fname.tar --delete xxx yyy
+	|
+	|
+	|--> CREATE-INSPECT-KEY-PAIR (ENCRYPT / DECRYPY USING OPENSSL):
+	     ``````````````````````````````````````````````````````````
+		|
+		|--> Generate private key of 2048bits RSA		-		openssl genrsa -out private_key.pem 2048 (2048 refers to bits)
+		|--> Generate Public Key Based on PrivateKey		-		openssl rsa -in private_key.pem -outform PEM -pubout -out public_key.pem
+		|--> Encrypt the file using public key			-		openssl rsautl -encrypt -pubin -inkey public_key.pem -in fname -out secret.enc
+		|--> Decrypt the file using Private Key			-		openssl rsautl -decrypt -inkey private_key.pem -in secret.enc
+	
+	
+******************************************************************************************************************************************************************
+
+								INSTALLATION:
+								`````````````
+
+SYSTEM-UPDATE:
+``````````````
+	|
+	|--> Update Kernel						-		sudo apt full-upgrade
+	|--> Update Package Manager					-		sudo apt update && sudo apt upgrade -y
+
+
+PACKAGES:
+`````````
+	|
+	|--> List Debian Packages					-		dpkg -l
+	|--> Search Debian Packages					-		dpkg -l | grep xxx
+	|--> Install a Package Manager					-		sudo apt install pkgname
+	|--> Remove a Package Manager					-		sudo apt remove pkgname
+	|--> Install a Debian Packages					-		sudo dpkg -i pkgname.deb (i - Install)
+	|--> Remove a Debian Packages					-		sudo dpkg -r pkg (r - Remove)
+
+
+REMOTE-CONNECTION:
+``````````````````
+	|
+	|--> Install SSH Client						-		sudo apt-get install openssh-client
+	|--> Install SSH Server						-		sudo apt-get install openssh-server
+		|
+		|--> See Local Host					-		sudo nano /etc/hosts (cd to Desktop)
+		|--> Name of Host or Domain				-		nslookup
+		|--> Connect To Remote Network				-		ssh -i ~/xxx/yyy/zzz.pem username@IPAddress
+		|--> Send Files Through SSH				-		scp /xxx/yyy/zzz.txt username@IPAddress
+
+
+PYTHON-PIP:
+```````````
+	|
+	|--> Install pip						-		sudo apt install python3-pip
+	|--> Install pip Module						-		python3.8 -m pip install <module>
+	|--> Uninstall pip Module					-		python3.8 -m pip uninstall <module>
+
+
+WEB-DEVELOPMENT:
+````````````````
+	|
+	|--> Node Js							-		sudo apt-get install -y nodejs
+	|--> NPM							-		sudo apt install npm
+	|--> Browser Sync						-		sudo npm install -g browser-sync
+		|
+		|--> Start Browser Sync					-		browser-sync start --server --directory --files "*"
+		|--> Sync Including child folder			-		browser-sync start --server --files "**/*"
+
+
+******************************************************************************************************************************************************************
+
+							DISK-PARTITION-MANAGEMENT:
+							``````````````````````````
+
+Show Partition Informations                     			-		sudo fdisk -l
+List Of Partitions in HardDisk                  			-		sudo parted -l
+Repair File System (Umount File System)					-		sudo fsck /dev/xxx (Make Sure to Umount of it may Cause Serious Error)
+Copy XDisk Files to YDisk                       			-		sudo dd if=/dev/sdd of=~/Desktop/name.img bs=100M
+
+
+TO-CREATE-A-NEW-PARTITION:
+``````````````````````````
+	|
+	|--> Go to Interactive Mode					-		sudo parted /dev/xxx
+	|	|
+	|	|--> Is Correct Disk Selected?				-		print
+	|	|--> To Make a Lable					-		mklabel gpt (or) mbr 
+	|	|--> Make A Primary Partition				-		mkpart primary ext4 1MiB 5GiB
+	|	|--> Exit Interactive Mode				-		quit
+	|
+	|--> Format Partition						-		mkfs -t ext4 /dev/xxx
+	|--> Mount Disk	(to mount disk we need a directory)
+	|	|
+	|	|--> Create a New Directory				-		mkdir /dirname
+	|	|--> Mount it 						-		sudo mount /dev/xxx /dirname
+	|
+	|--> Unmount (Two ways)
+		|
+		|--> Unmount Disk					-		sudo umount /dev/xxx
+		|--> Unmount Directory					-		sudo umount /dirname
+
+
+	  NOTE:
+		|
+		|-->PARTITION-TABLE:
+			|
+			|--> MBR [Master Boot Record]			-	Only 4 Primary Partition [mostly used in windows]
+			|--> GPT [GUID Partition Table]			-	Unlimited Partition 
+			|--> UEFI					-	Used for Default BIOS system (But it is a GPT label)
+
+
+TO-CREATE-A-SWAP-PARTITION:
+```````````````````````````
+	|
+	|--> Go to Interactive Mode					-		sudo parted /dev/xxx
+	|	|
+	|	|--> Is Correct Disk Selected?				-		print
+	|	|--> Make A Primary Partition				-		mkpart primary linux-swap 1MiB 5GiB	
+	|	|--> Exit Interactive Mode				-		quit
+	|
+	|--> ON the Swap Partition					-		sudo mkswap /dev/xxx
+	|--> Enable the Swap Partition					-		sudo swapon /dev/xxx
+
+
+AUTOMATICALLY-MOUNT-DISK-ON-STARTUP:
+````````````````````````````````````
+	|
+	|--> Go to Directory						-		cd /etc
+	|--> View Fstab File						-		cat /etc/fstab
+	|--> Add UUID To this File
+		|
+		|--> Show The UUID					-		sudo blkid
+
+
+DISK-USAGE:
+```````````
+	|
+	|--> Disk Utilization						-		du -h
+	|--> Free Space Available					-		df -h
+
+
+******************************************************************************************************************************************************************
+
+							PROCESS-&-SERVICE-MAINTENANCE:
+							``````````````````````````````
+
+PROCESS:
+````````
+	|
+	|--> RUNNING-PROCESS:
+	|    ````````````````
+	|	|
+	|	|--> Running Process					-		ps
+	|	|--> Running Process With Details			-		ps -ef
+	|	|--> Running Including Background			-		ps -x
+	|	|--> Show Process Resource				-		top (q - exit)
+	|	|--> Amount of Free Memory				-		free
+	|	|--> Duration of uptime					-		uptime
+	|	|--> Opened Files&Process Using it			-		lsof
+	|
+	|
+	|--> TERMINATION:
+	     ````````````
+			|
+			|--> Terminate a Process Saftely		-		kill 'ProcessID
+			|--> Terminate a Process Absolutely		-		kill -KILL 'ProcessID
+			|--> Suspend a Process				-		kill -TSTP 'ProcessID
+			|--> Continue a Process				-		kill -CONT 'ProcessID
+			|--> Kill File Manager				-		killall nautilus
+			|--> Kill Ubuntu Store				-		killall snap-store
+			|--> Livepatch Refresh				-		canonical-livepatch refresh
+	
+	
+SERVICES:
+`````````
+	|
+	|--> Start The Service						-		sudo service 'servicename start
+	|--> Check The Status Of Service				-		sudo service 'servicename status
+	|--> Services that are Installed				-		sudo systemctl (q - quit)
+	|--> Services that are Running					-		sudo systemctl --state=running (q - quit)
+	|--> Services that are Failed					-		sudo systemctl --state=failes (q - quit)
+	|--> Restart The Service					-		sudo service 'servicename restart
+	|--> Stop The Service						-		sudo service 'servicename stop
+
+
+LOG-FILES:
+``````````
+	|
+	|--> Show Log Files						-		less /var/log/syslog
+	|--> Show Errors in Log Files					-		less /var/log/syslog | grep error
+	|--> Show Errors in Log Files on Real Time			-		tail -f /var/log/syslog
+
+
+******************************************************************************************************************************************************************
+
+								     SYSTEM:
+								     ```````
+
+System Kernel Version                           			-		uname -r
+Change Date                                     			-		sudo date -s "1999-02-05 00:00:00"
+Set Local Time Date (DualBoot)                 				-		timedatectl set-local-rtc 1
+Login as Root User                              			-		sudo su - (or) sudo -i
+Reboot Without Restarting System
+	|
+	|--> gnome-shell --replace & disown
+	|--> Press: Alt+Fn+F2 --> Type: r
+
+
+ACCOUNT:
+````````
+	|
+	|--> Set a New password						-		passwd usrname
+	|--> Force Local User to Set New Password			-		sudo passwd -e usrname
+	|--> Add new Local User						-		sudo useradd usrname
+	|--> Remove Local User						-		sudo userdel usrname
+
+
+FACTORY-RESET-WITHOUT-REMOVING-DATA: (Follow Those Commands Step by Step)
+````````````````````````````````````
+	|
+	|--> Configure Unconfigured Packages				-		sudo dpkg --configure -a
+	|--> Update Content Of Repositories				-		sudo apt-get update
+	|--> Fix Missing Dependencies					-		sudo apt-get -f install
+	|--> Update All Package with Newer Version			-		sudo apt-get full-upgrade
+	|--> Reinstall Ubuntu						-		sudo apt-get install --reinstall ubuntu-desktop
+	|--> Remove Unnecessary Packages				-		sudo apt-get autoremove
+	|--> Delete Packages thats Installed				-		sudo apt-get clean
+	|--> Reboot System To Take Action				-		sudo reboot
+
+
+REPAIRING-BOOT-AFTER-INSTALLING-LINUX-AND-WINDOWS (DUAL-BOOT):
+``````````````````````````````````````````````````````````````
+	|
+	|--> Insert Ubuntu Bootable USB
+	|--> Click on Try Ubuntu
+	|--> Open Terminal (Check Connected to a Network)
+		|
+		|--> sudo add-apt-repository ppa:yannubuntu/boot-repair
+		|--> sudo apt update
+		|--> sudo apt install boot-repair
+		|--> boot-repair
+		|		|
+		|		|--> REPAIR BOOT OF COMPUTER [Select - Recommended Repair]
+		|		|--> BOOT INFO [Select - No]
+		|
+		|--> sudo reboot now
+	
+
+******************************************************************************************************************************************************************
+
+								    TERMINAL:
+								    `````````
+	|
+	|--> Clear Terminal						-		clear
+	|--> Terminal History						-		history
+	|--> Stop Execution						-		Ctrl + Z
+	|--> Restart Execution that's been Stoped			-		fg
+	|--> Stop Execution Completely					-		Ctrl + C
+	|--> Freeze Keyboard						-		Ctrl + S
+	|--> Unfreeze Keyboard						-		Ctrl + Q
+
+
+******************************************************************************************************************************************************************
+
+
+																by,
+																	Shanmuga Raj.R
