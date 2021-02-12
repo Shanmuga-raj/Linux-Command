@@ -112,7 +112,10 @@ PACKAGES:
 	|--> Remove a Package Manager					-		sudo apt remove pkgname
 	|--> Install a Debian Packages					-		sudo dpkg -i pkgname.deb (i - Install)
 	|--> Remove a Debian Packages					-		sudo dpkg -r pkg (r - Remove)
-
+	|--> List Manually Installed Packages				-		comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/initial-status.gz 
+	|											| sed -n 's/^Package: //p' | sort -u)
+	|--> List Installed Packages					-		apt list --manual-installed
+	|--> Reinstall Packages						-		sudo apt install --reinstall PACKAGE
 
 REMOTE-CONNECTION:
 ``````````````````
@@ -132,6 +135,7 @@ PYTHON-PIP:
 	|--> Install pip						-		sudo apt install python3-pip
 	|--> Install pip Module						-		python3.8 -m pip install <module>
 	|--> Uninstall pip Module					-		python3.8 -m pip uninstall <module>
+	|--> Remove Carriage Return from Windows			-		tr -d '\r' < oldfile.py > newfile.py
 
 
 WEB-DEVELOPMENT:
@@ -198,6 +202,18 @@ TO-CREATE-A-SWAP-PARTITION:
 	|
 	|--> ON the Swap Partition					-		sudo mkswap /dev/xxx
 	|--> Enable the Swap Partition					-		sudo swapon /dev/xxx
+
+
+DELETE-EXISTENT-SWAP-AND-CREATE-A-NEW-SWAP:
+```````````````````````````````````````````
+	|
+	|--> Check For The Presence Of Swap File			-		cat /proc/swaps (or) grep swap /etc/fstab
+	|--> Disable Swap File						-		sudo swapoff /swapfile
+	|--> Remove Swap File						-		sudo rm /swapfile
+	|--> Allocate Space to Swap					-		sudo fallocate -l 32g /swapfile (32g - 32GB)
+	|--> Allow permisson						-		sudo chmod 600 /swapfile
+	|--> ON the Swap File						-		sudo mkswap /swapfile
+	|--> Enable the Swap File					-		sudo swapon /swapfile
 
 
 AUTOMATICALLY-MOUNT-DISK-ON-STARTUP:
@@ -275,6 +291,7 @@ LOG-FILES:
 								     ```````
 
 System Kernel Version                           			-		uname -r
+OS Version								-		lsb_release -a (or) cat /etc/lsb-release
 Change Date                                     			-		sudo date -s "1999-02-05 00:00:00"
 Set Local Time Date (DualBoot)                 				-		timedatectl set-local-rtc 1
 Login as Root User                              			-		sudo su - (or) sudo -i
@@ -291,6 +308,17 @@ ACCOUNT:
 	|--> Force Local User to Set New Password			-		sudo passwd -e usrname
 	|--> Add new Local User						-		sudo useradd usrname
 	|--> Remove Local User						-		sudo userdel usrname
+
+
+RESETTING GNOME:
+````````````````
+	|
+	|--> Reset Gnome Extension					-		rm -rf ~/.local/share/gnome-shell/extensions
+	|--> Reset dconf (gsetting) to default				-		dconf reset -f /org/gnome/ 
+	|										(or) mv .config/dconf/user .config/dconf/user.bak && sudo reboot
+	|--> Remove all Gnome2 Config Settings				-		rm -rf .gnome .gnome2 .gconf .gconfd .metacity
+	|--> Remove all Gnome3 Config Settings				-		rm -rf .gnome .gnome2 .gconf .gconfd .metacity .cache .dbus .dmrc 
+												.mission-control .thumbnails ~/.config/dconf/user ~.compiz*
 
 
 FACTORY-RESET-WITHOUT-REMOVING-DATA: (Follow Those Commands Step by Step)
@@ -336,7 +364,17 @@ REPAIRING-BOOT-AFTER-INSTALLING-LINUX-AND-WINDOWS (DUAL-BOOT):
 	|--> Stop Execution Completely					-		Ctrl + C
 	|--> Freeze Keyboard						-		Ctrl + S
 	|--> Unfreeze Keyboard						-		Ctrl + Q
-
+	|--> Move Cursor Left (Move Back)				-		Ctrl + B
+	|--> Move Cursor Right (Move Front)				-		Ctrl + F
+	|--> Previous Command						-		Ctrl + P
+	|--> Next Command						-		Ctrl + N
+	|--> Move Cursor to the Beginning				-		Ctrl + A
+	|--> Move Cursor to the End					-		Ctrl + E
+	|--> Erase a Word						-		Ctrl + W
+	|--> Erase From Cursor to the Beginning				-		Ctrl + U
+	|--> Erase From Cursor to the End				-		Ctrl + K
+	|--> Paste Erased Text						-		Ctrl + Y
+	|--> Switch to Another Virtual Console				-		Alt + Ctrl + F1
 
 ******************************************************************************************************************************************************************
 
