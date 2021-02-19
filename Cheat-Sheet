@@ -26,6 +26,7 @@ DIRECTORY:
 	|--> Remove Directory						-		rm -r xxx (or) rmdir xxx
 
 
+
 FILE:
 `````
 	|
@@ -33,13 +34,20 @@ FILE:
 	|--> Create Multiple File					-		touch A{a..z}.txt
 	|--> List File in Directory					-		ls (or) dir ( l - additional information, a- hidden files)
 	|--> Display Document						-		cat xxx.txt
+	|--> Display The Content Of File				-		pr xxx.txt
 	|--> Display Larger Document					-		less xxx.txt
+	|--> Display One Page At A Time					-		more xxx.txt
 	|--> Display First 10 Lines Of File				-		head xxx.txt
 	|--> Display Last 10 Lines Of File				-		tail xxx.txt
 	|--> Edit File (xxx.txt)					-		nano xxx.txt (or) gedit xxx.txt
-	|--> Overwrite Content In File					-		echo text > xxx.txt
+	|--> Append Given Text To File					-		echo 'this is a new line' >> xxx.txt (In Single Quote's)
+	|--> To Append New Line						-		echo >> xxx.txt (or) echo '\n' >> xxx.txt
+	|--> To Append New Line with Some Texts				-		echo -en 'first line \nsecond line' >> xxx.txt
+	|--> To Remove Certain Line From File				-		sed -i 'ld' xxx.txt (replace 'l' with line number, use $ for last line)
+	|--> Overwrite The Files With Given				-		echo 'this one removes everything' > xxx.txt
 	|--> Append Content To File					-		echo text >> xxx.txt
-	|--> Standard Input	From File				-		cat < xxx.txt (same as cat command)
+	|--> Overwrite Content In File					-		echo text > xxx.txt
+	|--> Standard Input From File					-		cat < xxx.txt (same as cat command)
 	|--> Print The Type of File					-		file xxx
 	|--> Search word in File (xxx.txt)				-		grep word xxx.txt
 	|--> Count Character in File					-		wc xxx.txt
@@ -87,10 +95,15 @@ FILE:
 		|
 		|--> Generate private key of 2048bits RSA		-		openssl genrsa -out private_key.pem 2048 (2048 refers to bits)
 		|--> Generate Public Key Based on PrivateKey		-		openssl rsa -in private_key.pem -outform PEM -pubout -out public_key.pem
-		|--> Encrypt the file using public key			-		openssl rsautl -encrypt -pubin -inkey public_key.pem -in fname -out secret.enc
-		|--> Decrypt the file using Private Key			-		openssl rsautl -decrypt -inkey private_key.pem -in secret.enc
-	
-	
+		|--> Encrypt the file using public key			-		openssl rsautl -encrypt -pubin -inkey public_key.pem -in fname.txt 
+		|										-out n_fname.enc
+		|--> Decrypt the file using Private Key			-		openssl rsautl -decrypt -inkey private_key.pem -in n_file.enc
+		|--> Creata a Hash Digest 				-		openssl dgst -sha256 -sign private_key.pem -out fname.txt.sha256 fname.txt
+		|--> Hash Digest Verification				-		openssl dgst -sha256 -verify public_key.pem -signature 
+												fname.txt.sha256 fname.txt
+
+
+
 ******************************************************************************************************************************************************************
 
 								INSTALLATION:
@@ -112,8 +125,8 @@ PACKAGES:
 	|--> Remove a Package Manager					-		sudo apt remove pkgname
 	|--> Install a Debian Packages					-		sudo dpkg -i pkgname.deb (i - Install)
 	|--> Remove a Debian Packages					-		sudo dpkg -r pkg (r - Remove)
-	|--> List Manually Installed Packages				-		comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/initial-status.gz 
-	|											| sed -n 's/^Package: //p' | sort -u)
+	|--> List Manually Installed Packages				-		comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/
+	|											initial-status.gz | sed -n 's/^Package: //p' | sort -u)
 	|--> List Installed Packages					-		apt list --manual-installed
 	|--> Reinstall Packages						-		sudo apt install --reinstall PACKAGE
 
@@ -136,6 +149,11 @@ PYTHON-PIP:
 	|--> Install pip Module						-		python3.8 -m pip install <module>
 	|--> Uninstall pip Module					-		python3.8 -m pip uninstall <module>
 	|--> Remove Carriage Return from Windows			-		tr -d '\r' < oldfile.py > newfile.py
+	|--> Installing Kivy
+		|
+		|--> Add Repository					-		sudo add-apt-repository ppa:kivy-team/kivy
+		|--> Install Kivy					-		sudo apt-get install python3-kivy
+		|--> Install Kivy Examples				-		sudo apt-get install kivy-examples
 
 
 WEB-DEVELOPMENT:
@@ -149,6 +167,7 @@ WEB-DEVELOPMENT:
 		|--> Sync Including child folder			-		browser-sync start --server --files "**/*"
 
 
+
 ******************************************************************************************************************************************************************
 
 							DISK-PARTITION-MANAGEMENT:
@@ -158,6 +177,7 @@ Show Partition Informations                     			-		sudo fdisk -l
 List Of Partitions in HardDisk                  			-		sudo parted -l
 Repair File System (Umount File System)					-		sudo fsck /dev/xxx (Make Sure to Umount of it may Cause Serious Error)
 Copy XDisk Files to YDisk                       			-		sudo dd if=/dev/sdd of=~/Desktop/name.img bs=100M
+
 
 
 TO-CREATE-A-NEW-PARTITION:
@@ -191,6 +211,7 @@ TO-CREATE-A-NEW-PARTITION:
 			|--> UEFI					-	Used for Default BIOS system (But it is a GPT label)
 
 
+
 TO-CREATE-A-SWAP-PARTITION:
 ```````````````````````````
 	|
@@ -202,6 +223,7 @@ TO-CREATE-A-SWAP-PARTITION:
 	|
 	|--> ON the Swap Partition					-		sudo mkswap /dev/xxx
 	|--> Enable the Swap Partition					-		sudo swapon /dev/xxx
+
 
 
 DELETE-EXISTENT-SWAP-AND-CREATE-A-NEW-SWAP:
@@ -216,6 +238,7 @@ DELETE-EXISTENT-SWAP-AND-CREATE-A-NEW-SWAP:
 	|--> Enable the Swap File					-		sudo swapon /swapfile
 
 
+
 AUTOMATICALLY-MOUNT-DISK-ON-STARTUP:
 ````````````````````````````````````
 	|
@@ -226,11 +249,13 @@ AUTOMATICALLY-MOUNT-DISK-ON-STARTUP:
 		|--> Show The UUID					-		sudo blkid
 
 
+
 DISK-USAGE:
 ```````````
 	|
 	|--> Disk Utilization						-		du -h
 	|--> Free Space Available					-		df -h
+
 
 
 ******************************************************************************************************************************************************************
@@ -245,12 +270,18 @@ PROCESS:
 	|    ````````````````
 	|	|
 	|	|--> Running Process					-		ps
-	|	|--> Running Process With Details			-		ps -ef
+	|	|--> All Running Process				-		ps -f
+	|	|--> All Running Process Except Kernel			-		ps -ef
 	|	|--> Running Including Background			-		ps -x
+	|	|--> Wide List Sorted by Percentage			-		ps auxw
 	|	|--> Show Process Resource				-		top (q - exit)
 	|	|--> Amount of Free Memory				-		free
 	|	|--> Duration of uptime					-		uptime
 	|	|--> Opened Files&Process Using it			-		lsof
+	|	|--> Shows network status				-		netstat
+	|	|--> Show Virtual Memory Status				-		vmstat
+	|	|--> Show Input/Output Status				-		iostat
+	|	|--> Report System Activity				-		sar
 	|
 	|
 	|--> TERMINATION:
@@ -263,6 +294,16 @@ PROCESS:
 			|--> Kill File Manager				-		killall nautilus
 			|--> Kill Ubuntu Store				-		killall snap-store
 			|--> Livepatch Refresh				-		canonical-livepatch refresh
+		
+		
+		
+CRON-TABLE:
+```````````
+	|
+	|--> Cron Table Entry to Execute a Script			-		Minute Hour Day Month Week command-to-execute
+			|
+			|--> 59 11 2 5 * /usr/bin/banner "Happy Birthday" > /dev/console
+	
 	
 	
 SERVICES:
@@ -275,6 +316,7 @@ SERVICES:
 	|--> Services that are Failed					-		sudo systemctl --state=failes (q - quit)
 	|--> Restart The Service					-		sudo service 'servicename restart
 	|--> Stop The Service						-		sudo service 'servicename stop
+
 
 
 LOG-FILES:
@@ -290,24 +332,35 @@ LOG-FILES:
 								     SYSTEM:
 								     ```````
 
+
 System Kernel Version                           			-		uname -r
 OS Version								-		lsb_release -a (or) cat /etc/lsb-release
 Change Date                                     			-		sudo date -s "1999-02-05 00:00:00"
 Set Local Time Date (DualBoot)                 				-		timedatectl set-local-rtc 1
-Login as Root User                              			-		sudo su - (or) sudo -i
 Reboot Without Restarting System
 	|
 	|--> gnome-shell --replace & disown
 	|--> Press: Alt+Fn+F2 --> Type: r
 
 
+
 ACCOUNT:
 ````````
 	|
+	|--> Login as Root User                              		-		sudo su - (or) sudo -i
+	|--> Display $USER or $LOGIN					-		whoami
+	|--> Display info about logged-in user				-		f, finger
+	|--> split screen conversation for two users			-		talk
+	|--> Display Message on user's screen				-		write
+	|--> Displays a message on all logged-in users’ screens		-		wall
+	|--> Displays a message to all users on a remote host		-		rwall
+	|--> Executes a command, or login, on a remote host		-		rsh (or) remsh
+	|--> Displays filesystem statistics				-		df
 	|--> Set a New password						-		passwd usrname
 	|--> Force Local User to Set New Password			-		sudo passwd -e usrname
 	|--> Add new Local User						-		sudo useradd usrname
 	|--> Remove Local User						-		sudo userdel usrname
+
 
 
 RESETTING GNOME:
@@ -334,6 +387,7 @@ FACTORY-RESET-WITHOUT-REMOVING-DATA: (Follow Those Commands Step by Step)
 	|--> Reboot System To Take Action				-		sudo reboot
 
 
+
 REPAIRING-BOOT-AFTER-INSTALLING-LINUX-AND-WINDOWS (DUAL-BOOT):
 ``````````````````````````````````````````````````````````````
 	|
@@ -350,34 +404,107 @@ REPAIRING-BOOT-AFTER-INSTALLING-LINUX-AND-WINDOWS (DUAL-BOOT):
 		|		|--> BOOT INFO [Select - No]
 		|
 		|--> sudo reboot now
-	
+
+
 
 ******************************************************************************************************************************************************************
 
 								    TERMINAL:
 								    `````````
+
+BASIC-COMMANDS:
+````````````````
 	|
+	|--> Displays Information about User				-		who
+	|--> Extended who command					-		w
 	|--> Clear Terminal						-		clear
 	|--> Terminal History						-		history
-	|--> Stop Execution						-		Ctrl + Z
 	|--> Restart Execution that's been Stoped			-		fg
+	|--> Locates Files and Directories				-		find
+	|--> Display the System Date and Time				-		date
+	|--> Display the Calendar					-		cal
+	|--> Status of System Print Queues				-		lpstat
+	|--> Enable or Start print Queue				-		enable
+	|--> Disable or Stop Print Queue				-		disable
+	|--> Displays base filename of a string parameter		-		basename
+	|--> Writes out selected characters				-		cut
+	|--> Programming language to parse characters			-		awk
+	|--> Programming language for character substitution		-		sed
+	
+
+
+SYMBOL-COMMANDS:
+````````````````
+	|
+	|--> String Commands Together (Pipe)				-		|
+	|--> Execute in Background					-		&
+	|--> Runs The Enclosed Command In A Sub-Shell			-		( )
+	|--> Assigns value to a variable and does math in a shell	-		(( ))
+	|--> Evaluates the enclosed Expression				-		$(( ))
+	|--> String Comparison						-		< >
+	|--> Command Substitution					-		$( ) (or) 'command'
+	
+	
+	
+OPERATOR:
+`````````
+	|
+	|--> Bitwise OR							-		|
+	|--> Logical OR							-		||
+	|--> Bitwise Exclusive OR					-		^
+	|--> Bitwise AND						-		&
+	|--> Logical AND						-		&&
+	|--> Unary Plus, Addition					-		+
+	|--> Unary Minus, Subtraction					-		-
+	|--> Multiplication						-		*
+	|--> Division							-		/
+	|--> Modulus (Remainder)					-		%
+	|--> Auto Increment						-		++
+	|--> Auto Decrement						-		--
+	|--> Less Than							-		<
+	|--> Greater Than						-		>
+	|--> Less Than or Equal To					-		<=
+	|--> Greater Than or Equal To					-		>=
+	|--> Equality							-		==
+	|--> Inequality							-		!=
+	|--> Bitwise Left Shift						-		<<
+	|--> Bitwise Right Shift					-		>>
+	|--> Logical Negotiation					-		!
+	|--> Binary Inversion						-		~
+	
+	
+
+KEYBOARD-SHORTCUT:
+``````````````````
+	|
+	|--> Move Cursor to the Beginning				-		Ctrl + A
+	|--> Move Cursor to the End					-		Ctrl + E
+	|--> Move Cursor Left (Move Back)				-		Ctrl + B
+	|--> Move Cursor Right (Move Front)				-		Ctrl + F
+	|--> Erase From Cursor to the Beginning				-		Ctrl + U
+	|--> Erase From Cursor to the End				-		Ctrl + K
+	|--> Previous Command						-		Ctrl + P
+	|--> Next Command						-		Ctrl + N
+	|--> Stop Execution						-		Ctrl + Z
 	|--> Stop Execution Completely					-		Ctrl + C
 	|--> Freeze Keyboard						-		Ctrl + S
 	|--> Unfreeze Keyboard						-		Ctrl + Q
-	|--> Move Cursor Left (Move Back)				-		Ctrl + B
-	|--> Move Cursor Right (Move Front)				-		Ctrl + F
-	|--> Previous Command						-		Ctrl + P
-	|--> Next Command						-		Ctrl + N
-	|--> Move Cursor to the Beginning				-		Ctrl + A
-	|--> Move Cursor to the End					-		Ctrl + E
 	|--> Erase a Word						-		Ctrl + W
-	|--> Erase From Cursor to the Beginning				-		Ctrl + U
-	|--> Erase From Cursor to the End				-		Ctrl + K
 	|--> Paste Erased Text						-		Ctrl + Y
 	|--> Switch to Another Virtual Console				-		Alt + Ctrl + F1
+	
+	
+	
+BASH:
+`````
+	|
+	|--> See Repeated Lines in a File				-		cat file_name | uniq
+	|--> Remove Repeated Lines in a File				-		uniq file_name new_file_name
+
+
 
 ******************************************************************************************************************************************************************
 
 
 																by,
-																	Shanmuga Raj.R
+																	Shanmuga Raj R
