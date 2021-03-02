@@ -130,6 +130,7 @@ PACKAGES:
 	|--> List Installed Packages					-		apt list --manual-installed
 	|--> Reinstall Packages						-		sudo apt install --reinstall PACKAGE
 
+
 REMOTE-CONNECTION:
 ``````````````````
 	|
@@ -148,12 +149,53 @@ PYTHON-PIP:
 	|--> Install pip						-		sudo apt install python3-pip
 	|--> Install pip Module						-		python3.8 -m pip install <module>
 	|--> Uninstall pip Module					-		python3.8 -m pip uninstall <module>
+	|--> List all Installed pip					-		pip freeze (or) pip freeze --local
 	|--> Remove Carriage Return from Windows			-		tr -d '\r' < oldfile.py > newfile.py
-	|--> Installing Kivy
-		|
-		|--> Add Repository					-		sudo add-apt-repository ppa:kivy-team/kivy
-		|--> Install Kivy					-		sudo apt-get install python3-kivy
-		|--> Install Kivy Examples				-		sudo apt-get install kivy-examples
+	|--> Uninstalling every installed pip packages			-		pip uninstall -y -r <(pip freeze)
+
+
+Installing Kivy:
+````````````````
+	|
+	|--> Add Repository					-		sudo add-apt-repository ppa:kivy-team/kivy
+	|--> Install Kivy					-		sudo apt-get install python3-kivy
+	|--> Install Kivy Examples				-		sudo apt-get install kivy-examples
+	|--> Uninstall Kivy					-		sudo apt-get purge --auto-remove python3-kivy
+
+
+CREATING-VIRTUAL-ENVIRONMENT:
+`````````````````````````````
+	|
+	|--> Creating Virutal Environment by installing Django in Ubuntu:
+	|    ````````````````````````````````````````````````````````````
+	|		|
+	|		|--> Install venv from ubuntu			-		sudo apt install python3-venv
+	|		|--> Create a New Virtual Directory		-		mkdir django-project
+	|		|--> Go to that new directory			-		cd django-project
+	|		|--> Create a Virtual Environment		-		python3.8 -m venv djangoenv (djangoenv - any name as you want)
+	|		|--> Activate Isolated Environment		-		source djangoenv/bin/activate
+	|		|--> Install Django				-		pip install django
+	|		|--> Verify Version				-		django-admin --version
+	|		|--> Deactivate Environment			-		deactivate
+	|		|--> Create a Django Project:
+	|			|
+	|			|--> Start Project			-		django-admin startproject web_project
+	|			|--> Create empty development database	-		python manage.py migrate
+	|			|--> Start Server			-		python manage.py runserver
+	|			|--> Go to http				-		Ctrl+Click > http://127.0.0.1:3000/
+	|
+	|
+	|--> Creating Virtual Environment in VSCode and by installing Kivy:
+	    ``````````````````````````````````````````````````````````````
+			|
+			|--> Create a New Directory			-		mkdir kivy-project
+			|--> Move to that Directory			-		cd kivy-project
+			|--> Create a new virtual Environment		-		python3.8 -m venv kivyenv (kivyenv - any name as you want)
+			|--> Open VS Code				-		File > Open Folder > kivy-project
+			|--> Select Interpreter				-		Ctrl+Shift+P > python: Select Interpreter > .\kivyenv\Scripts\python.exe
+			|--> Upgrade pip				-		python -m pip install --upgrade pip
+			|--> Install django				-		pip install kivy
+			|--> Deactivate Environment			-		deactivate
 
 
 WEB-DEVELOPMENT:
