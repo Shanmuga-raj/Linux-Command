@@ -132,6 +132,10 @@ PACKAGES:
 	|											initial-status.gz | sed -n 's/^Package: //p' | sort -u)
 	|--> List Installed Packages					-		apt list --manual-installed
 	|--> Reinstall Packages						-		sudo apt install --reinstall PACKAGE
+	|--> Backup Apps and PPAs					-		sudo apt-add-repository –y ppa:teejee2008/ppa
+	|											sudo apt-get install aptik
+	|--> Create a Snapshot of current version			-		sudo apt-add-repository -y ppa:teejee2008/ppa
+												sudo apt-get install timeshift
 
 
 
@@ -188,6 +192,7 @@ PYTHON:
 	|	|--> List all Installed pip				-		pip freeze (or) pip freeze --local
 	|	|--> Remove Carriage Return from Windows		-		tr -d '\r' < oldfile.py > newfile.py
 	|	|--> Uninstalling every installed pip packages		-		pip uninstall -y -r <(pip freeze)
+	|	|--> Create a Required pip module file			-		pip freeze > requirements.txt
 	|
 	|
 	|--> Installing Kivy:
