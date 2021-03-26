@@ -14,9 +14,9 @@ DIRECTORY:
 	|--> Print Working Directory					-		pwd
 	|--> Change Directory						-		cd
 	|--> Go To Previous Directory					-		cd ..
+	|--> Make Directory						-		mkdir xxx
 	|--> Change Directory (Relative path)				-		cd ../xxx
 	|--> Change Directory (Absolute path)				-		cd /xxx (or) cd ~/xxx
-	|--> Make Directory						-		mkdir xxx
 	|--> Directory Name With Space					-		mkdir x\ x\ x (or) mkdir 'x x x'
 	|--> Copy (xxx File to Directory yyy)				-		cp xxx ~/yyy
 	|--> Recursive Copy (Dir xxx to Dir yyy)			-		cp -r xxx ~/yyy
@@ -24,22 +24,25 @@ DIRECTORY:
 	|--> Move (xxx File to Directory yyy)				-		mv xxx ~/yyy
 	|--> Move Multiple file to Directory yyy			-		mv *.txt ~/yyy
 	|--> Remove Directory						-		rm -r xxx (or) rmdir xxx
+	|--> List File in Directory					-		ls (or) dir ( l - additional information, a- hidden files)
 
 
 
 FILE:
 `````
 	|
+	|--> Print The Type of File					-		file xxx
 	|--> Create a File						-		touch xxx
 	|--> Create Multiple File					-		touch A{a..z}.txt
-	|--> List File in Directory					-		ls (or) dir ( l - additional information, a- hidden files)
 	|--> Display Document						-		cat xxx.txt
 	|--> Display The Content Of File				-		pr xxx.txt
 	|--> Display Larger Document					-		less xxx.txt
 	|--> Display One Page At A Time					-		more xxx.txt
 	|--> Display First 10 Lines Of File				-		head xxx.txt
 	|--> Display Last 10 Lines Of File				-		tail xxx.txt
-	|--> Edit File (xxx.txt)					-		nano xxx.txt (or) gedit xxx.txt
+	|--> Edit File							-		nano xxx.txt (or) gedit xxx.txt
+	|--> See Repeated Lines in a File				-		cat file_name | uniq
+	|--> Remove Repeated Lines in a File				-		uniq file_name new_file_name
 	|--> Append Given Text To File					-		echo 'this is a new line' >> xxx.txt (In Single Quote's)
 	|--> To Append New Line						-		echo >> xxx.txt (or) echo '\n' >> xxx.txt
 	|--> To Append New Line with Some Texts				-		echo -en 'first line \nsecond line' >> xxx.txt
@@ -48,15 +51,14 @@ FILE:
 	|--> Append Content To File					-		echo text >> xxx.txt
 	|--> Overwrite Content In File					-		echo text > xxx.txt
 	|--> Standard Input From File					-		cat < xxx.txt (same as cat command)
-	|--> Print The Type of File					-		file xxx
 	|--> Search word in File (xxx.txt)				-		grep word xxx.txt
+	|--> Remove File						-		rm xxx
 	|--> Count Character in File					-		wc xxx.txt
-	|--> Rename File						-		mv xxx.txt yyy.txt
+	|--> Rename File						-		mv oldname newname
 	|--> Create Softlink of File					-		ln -s originalfname newfname (copy files without additional disk usage. 
 	|												Deleting file will delete every file)
 	|--> Create Hardlink of File					-		ln originalfname newfname (copy files without additional disk usage. 
 	|												Deleting copy wont affect other file)
-	|--> Remove File						-		rm xxx
 	|
 	|
 	|--> PERMISSION:
@@ -116,6 +118,7 @@ SYSTEM-UPDATE:
 	|--> Update Package Manager					-		sudo apt update && sudo apt upgrade -y
 
 
+
 PACKAGES:
 `````````
 	|
@@ -131,71 +134,105 @@ PACKAGES:
 	|--> Reinstall Packages						-		sudo apt install --reinstall PACKAGE
 
 
-REMOTE-CONNECTION:
-``````````````````
-	|
-	|--> Install SSH Client						-		sudo apt-get install openssh-client
-	|--> Install SSH Server						-		sudo apt-get install openssh-server
-		|
-		|--> See Local Host					-		sudo nano /etc/hosts (cd to Desktop)
-		|--> Name of Host or Domain				-		nslookup
-		|--> Connect To Remote Network				-		ssh -i ~/xxx/yyy/zzz.pem username@IPAddress
-		|--> Send Files Through SSH				-		scp /xxx/yyy/zzz.txt username@IPAddress
 
-
-PYTHON-PIP:
+SYSTEM-VPN:
 ```````````
 	|
-	|--> Install pip						-		sudo apt install python3-pip
-	|--> Install pip Module						-		python3.8 -m pip install <module>
-	|--> Uninstall pip Module					-		python3.8 -m pip uninstall <module>
-	|--> List all Installed pip					-		pip freeze (or) pip freeze --local
-	|--> Remove Carriage Return from Windows			-		tr -d '\r' < oldfile.py > newfile.py
-	|--> Uninstalling every installed pip packages			-		pip uninstall -y -r <(pip freeze)
-
-
-Installing Kivy:
-````````````````
-	|
-	|--> Add Repository					-		sudo add-apt-repository ppa:kivy-team/kivy
-	|--> Install Kivy					-		sudo apt-get install python3-kivy
-	|--> Install Kivy Examples				-		sudo apt-get install kivy-examples
-	|--> Uninstall Kivy					-		sudo apt-get purge --auto-remove python3-kivy
-
-
-CREATING-VIRTUAL-ENVIRONMENT:
-`````````````````````````````
-	|
-	|--> Creating Virutal Environment by installing Django in Ubuntu:
-	|    ````````````````````````````````````````````````````````````
+	|--> ADD PROTON VPN REPOSITORY:
 	|		|
-	|		|--> Install venv from ubuntu			-		sudo apt install python3-venv
-	|		|--> Create a New Virtual Directory		-		mkdir django-project
-	|		|--> Go to that new directory			-		cd django-project
-	|		|--> Create a Virtual Environment		-		python3.8 -m venv djangoenv (djangoenv - any name as you want)
-	|		|--> Activate Isolated Environment		-		source djangoenv/bin/activate
-	|		|--> Install Django				-		pip install django
-	|		|--> Verify Version				-		django-admin --version
-	|		|--> Deactivate Environment			-		deactivate
-	|		|--> Create a Django Project:
-	|			|
-	|			|--> Start Project			-		django-admin startproject web_project
-	|			|--> Create empty development database	-		python manage.py migrate
-	|			|--> Start Server			-		python manage.py runserver
-	|			|--> Go to http				-		Ctrl+Click > http://127.0.0.1:3000/
+	|		|--> sudo apt-get upgrade
+	|		|--> wget -q -O - https://repo.protonvpn.com/debian/public_key.asc | sudo apt-key add - 
+	|		|--> sudo add-apt-repository 'deb https://repo.protonvpn.com/debian unstable main'
 	|
 	|
-	|--> Creating Virtual Environment in VSCode and by installing Kivy:
-	    ``````````````````````````````````````````````````````````````
+	|--> INSTALL THE PROTON-VPN CLIENT:
+	|		|
+	|		|--> sudo apt-get update && sudo apt-get install protonvpn
+	|
+	|
+	|--> HOW TO USE PROTONVPN CLIENT ON LINUX:
+	|		|
+	|		|--> protonvpn-cli login [username] (username-its.shanmugaraj)
+	|		|--> protonvpn-cli connect
+	|		|--> protonvpn-cli status
+	|		|--> protonvpn-cli disconnect
+	|		|--> For Fastest protonVPN			-		protonvpn-cli c -f
+	|
+	|
+	|--> HOW TO USE KILL SWITCH:
+	|		|
+	|		|--> protonvpn-cli ks --on
+	|		|--> protonvpn-cli ks --always-on
+	|		|--> protonvpn-cli ks --off
+	|
+	|--> UNINSTALL:
 			|
-			|--> Create a New Directory			-		mkdir kivy-project
-			|--> Move to that Directory			-		cd kivy-project
-			|--> Create a new virtual Environment		-		python3.8 -m venv kivyenv (kivyenv - any name as you want)
-			|--> Open VS Code				-		File > Open Folder > kivy-project
-			|--> Select Interpreter				-		Ctrl+Shift+P > python: Select Interpreter > .\kivyenv\Scripts\python.exe
-			|--> Upgrade pip				-		python -m pip install --upgrade pip
-			|--> Install django				-		pip install kivy
-			|--> Deactivate Environment			-		deactivate
+			|--> protonvpn-cli ks --off
+			|--> sudo apt-get autoremove protonvpn
+			|--> rm -rf ~/.cache/protonvpn
+			|--> rm -rf ~/.config/protonvpn
+			|--> protonvpn configure
+					|
+					|--> Purge Configuration
+
+
+
+PYTHON:
+```````
+	|--> PYTHON-PIP:
+	|    ```````````
+	|	|
+	|	|--> Install pip					-		sudo apt install python3-pip
+	|	|--> Install pip Module					-		python3.8 -m pip install <module>
+	|	|--> Uninstall pip Module				-		python3.8 -m pip uninstall <module>
+	|	|--> List all Installed pip				-		pip freeze (or) pip freeze --local
+	|	|--> Remove Carriage Return from Windows		-		tr -d '\r' < oldfile.py > newfile.py
+	|	|--> Uninstalling every installed pip packages		-		pip uninstall -y -r <(pip freeze)
+	|
+	|
+	|--> Installing Kivy:
+	|    ````````````````
+	|	|
+	|	|--> Add Repository					-		sudo add-apt-repository ppa:kivy-team/kivy
+	|	|--> Install Kivy					-		sudo apt-get install python3-kivy
+	|	|--> Install Kivy Examples				-		sudo apt-get install kivy-examples
+	|	|--> Uninstall Kivy					-		sudo apt-get purge --auto-remove python3-kivy
+	|
+	|
+	|--> CREATING-VIRTUAL-ENVIRONMENT:
+	     `````````````````````````````
+		|
+		|--> Creating Virutal Environment by installing Django in Ubuntu:
+		|    ````````````````````````````````````````````````````````````
+		|		|
+		|		|--> Install venv from ubuntu		-		sudo apt install python3-venv
+		|		|--> Create a New Virtual Directory	-		mkdir django-project
+		|		|--> Go to that new directory		-		cd django-project
+		|		|--> Create a Virtual Environment	-		python3.8 -m venv djangoenv (djangoenv - any name as you want)
+		|		|--> Activate Isolated Environment	-		source djangoenv/bin/activate
+		|		|--> Install Django			-		pip install django
+		|		|--> Verify Version			-		django-admin --version
+		|		|--> Deactivate Environment		-		deactivate
+		|		|--> Create a Django Project:
+		|			|
+		|			|--> Start Project		-		django-admin startproject web_project
+		|			|--> Create Empty Dev database	-		python manage.py migrate
+		|			|--> Start Server		-		python manage.py runserver
+		|			|--> Go to http			-		Ctrl+Click > http://127.0.0.1:8000/
+		|
+		|
+		|--> Creating Virtual Environment in VSCode and by installing Kivy:
+		``````````````````````````````````````````````````````````````
+				|
+				|--> Create a New Directory		-		mkdir kivy-project
+				|--> Move to that Directory		-		cd kivy-project
+				|--> Create a new virtual Environment	-		python3.8 -m venv kivyenv (kivyenv - any name as you want)
+				|--> Open VS Code			-		File > Open Folder > kivy-project
+				|--> Select Interpreter			-		Ctrl+Shift+P > python: Select Interpreter > .\kivyenv\Scripts\python.exe
+				|--> Upgrade pip			-		python -m pip install --upgrade pip
+				|--> Install django			-		pip install kivy
+				|--> Deactivate Environment		-		deactivate
+
 
 
 WEB-DEVELOPMENT:
@@ -217,8 +254,8 @@ WEB-DEVELOPMENT:
 
 Show Partition Informations                     			-		sudo fdisk -l
 List Of Partitions in HardDisk                  			-		sudo parted -l
-Repair File System (Umount File System)					-		sudo fsck /dev/xxx (Make Sure to Umount of it may Cause Serious Error)
 Copy XDisk Files to YDisk                       			-		sudo dd if=/dev/sdd of=~/Desktop/name.img bs=100M
+Repair File System (Umount File System)					-		sudo fsck /dev/xxx (Make Sure to Umount of it may Cause Serious Error)
 
 
 
@@ -336,18 +373,31 @@ PROCESS:
 			|--> Kill File Manager				-		killall nautilus
 			|--> Kill Ubuntu Store				-		killall snap-store
 			|--> Livepatch Refresh				-		canonical-livepatch refresh
-		
-		
-		
+
+
+
 CRON-TABLE:
 ```````````
 	|
 	|--> Cron Table Entry to Execute a Script			-		Minute Hour Day Month Week command-to-execute
 			|
 			|--> 59 11 2 5 * /usr/bin/banner "Happy Birthday" > /dev/console
-	
-	
-	
+
+
+
+REMOTE-CONNECTION:
+``````````````````
+	|
+	|--> Install SSH Client						-		sudo apt-get install openssh-client
+	|--> Install SSH Server						-		sudo apt-get install openssh-server
+		|
+		|--> See Local Host					-		sudo nano /etc/hosts (cd to Desktop)
+		|--> Name of Host or Domain				-		nslookup
+		|--> Connect To Remote Network				-		ssh -i ~/xxx/yyy/zzz.pem username@IPAddress
+		|--> Send Files Through SSH				-		scp /xxx/yyy/zzz.txt username@IPAddress
+
+
+
 SERVICES:
 `````````
 	|
@@ -369,6 +419,7 @@ LOG-FILES:
 	|--> Show Errors in Log Files on Real Time			-		tail -f /var/log/syslog
 
 
+
 ******************************************************************************************************************************************************************
 
 								     SYSTEM:
@@ -376,9 +427,10 @@ LOG-FILES:
 
 
 System Kernel Version                           			-		uname -r
-OS Version								-		lsb_release -a (or) cat /etc/lsb-release
-Change Date                                     			-		sudo date -s "1999-02-05 00:00:00"
 Set Local Time Date (DualBoot)                 				-		timedatectl set-local-rtc 1
+Change Hostname								-		hostnamectl set-hostname newname
+Change Date                                     			-		sudo date -s "1999-02-05 00:00:00"
+OS Version								-		lsb_release -a (or) cat /etc/lsb-release
 Reboot Without Restarting System
 	|
 	|--> gnome-shell --replace & disown
@@ -414,6 +466,7 @@ RESETTING GNOME:
 	|--> Remove all Gnome2 Config Settings				-		rm -rf .gnome .gnome2 .gconf .gconfd .metacity
 	|--> Remove all Gnome3 Config Settings				-		rm -rf .gnome .gnome2 .gconf .gconfd .metacity .cache .dbus .dmrc 
 												.mission-control .thumbnails ~/.config/dconf/user ~.compiz*
+
 
 
 FACTORY-RESET-WITHOUT-REMOVING-DATA: (Follow Those Commands Step by Step)
@@ -472,7 +525,7 @@ BASIC-COMMANDS:
 	|--> Writes out selected characters				-		cut
 	|--> Programming language to parse characters			-		awk
 	|--> Programming language for character substitution		-		sed
-	
+
 
 
 SYMBOL-COMMANDS:
@@ -485,9 +538,9 @@ SYMBOL-COMMANDS:
 	|--> Evaluates the enclosed Expression				-		$(( ))
 	|--> String Comparison						-		< >
 	|--> Command Substitution					-		$( ) (or) 'command'
-	
-	
-	
+
+
+
 OPERATOR:
 `````````
 	|
@@ -513,8 +566,8 @@ OPERATOR:
 	|--> Bitwise Right Shift					-		>>
 	|--> Logical Negotiation					-		!
 	|--> Binary Inversion						-		~
-	
-	
+
+
 
 KEYBOARD-SHORTCUT:
 ``````````````````
@@ -534,14 +587,6 @@ KEYBOARD-SHORTCUT:
 	|--> Erase a Word						-		Ctrl + W
 	|--> Paste Erased Text						-		Ctrl + Y
 	|--> Switch to Another Virtual Console				-		Alt + Ctrl + F1
-	
-	
-	
-BASH:
-`````
-	|
-	|--> See Repeated Lines in a File				-		cat file_name | uniq
-	|--> Remove Repeated Lines in a File				-		uniq file_name new_file_name
 
 
 
