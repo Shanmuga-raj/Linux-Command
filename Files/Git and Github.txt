@@ -1,0 +1,193 @@
+
+
+									 ------------------
+ -----------------------------------------------------------------------|  GIT - COMMANDS  |------------------------------------------------------------
+|									 ------------------								|
+|																			|
+|	-----------------------																|
+|------|  BASIC-CONFIGURATION  |------------------------------------------------------------------------------------------------------------------------
+|	-----------------------																|
+|																			|
+|	* Display Git Configuration							-		git config -l					|
+|	* Check Your Configuration Settings						-		git config --list				|
+|	* View All Of Your Settings And Where They're Coming From			-		git config --list --show-origin			|
+|	* VCS Tracks Who Made Which Changes To Current Working Directory		-		git config (username) ('username')		|
+|	* VCS Tracks Who Made Which Changes To All Global Git Repository		-		git config --global user.name '<username>'	|
+|	* VCS Tracks Who Made Which Changes To All Global Git Repository		-		git config --global user.email '<user@mail>'	|
+|	* No Need To Type Username, Password Each Time This Works For 15 Minutes	-		git config --global credential.helper cache	|
+|	* To Set Master As Default Branch Name						-		git config --global init.defaultBranch master	|
+|	* Set Different Text editor							-		git config --global core.editor <editor_name>	|
+|	* Create An Alias In Git							-		git config --global alias.st status		|
+|	* Display URL of Remote Repository						-		git config --get remote.origin.url		|
+|	* Apply The Changes Contained In A Diff File To Another File			-		patch original.py < new.diff			|
+|	* Create A New Diff File							-		diff -u original.py fixed.py > new.diff		|
+|	* Add File To Ignore By Git							-		echo .file_to_ignore > .gitignore		|
+|																			|
+|																			|
+|	---------------------------															|
+|------|  INITIALIZATION & STATUS  |--------------------------------------------------------------------------------------------------------------------
+|	---------------------------															|
+|																			|
+|																			|
+|	* Initialize an Empty Git Repository						-		git init					|
+|	* Clone a Repository From Github						-		git clone <url>					|
+|	* Changes we made will be displayed						-		git diff					|
+|	* Display the status of our Repository						-		git status					|
+|	* Display short status of our repository					-		git status -s					|
+|																			|
+|																			|
+|	 ----------------																|
+|-------|  STAGING AREA  |------------------------------------------------------------------------------------------------------------------------------
+|	 ----------------																|
+|																			|
+|	* Stage single file, folder							-		git add <file_name> , <folder>			|
+|	* Stage all (new, modified, deleted) files					-		git add -A					|
+|	* Stage all (new, modified, deleted) files in current folder			-		git add .					|
+|	* Stage modified and deleted files only ignore new files			-		git add -u					|
+|	* Show changes to files in the staged area					-		git diff --staged				|
+|	* Show All Changes thats been Added to tracked files				-		git diff HEAD					|
+|	* Discard Changes before staging						-		git checkout <file>				|
+|	* Discard Changes in file on Working Directory before staging			-		git restore <file>				|
+|	* Discard Changes after File has been Staged					-		git restore --stages <file>			|
+|	* Completely remove all staged and unstages changes to tracked file		-		git reset --hard				|
+|	* Rename File name and add it to staging area					-		git mv <file>					|
+|	* Delete Commited File which doesn't have any changes				-		git rm <file>					|
+|	* Delete Files which has new changes						-		git rm -f <file>				|
+|	* Remove Untracked Files							-		git clean -f					|
+|	* Discard All Local Changes 							-		git restore . && git clean -f			|
+|																			|
+|																			|
+|	 ----------																	|
+|-------|  COMMIT  |------------------------------------------------------------------------------------------------------------------------------------
+|	 ----------																	|
+|																			|
+|	* Commit Changes								-		git commit					|
+|	* Commit changes with message							-		git commit -m 'commit message'			|
+|	* Commit changes and automatically add modified files (Ignore new files)	-		git commit -a -m 'commit message'		|
+|	* Overwrite Previous Commit (Avoid this in Public Repository)			-		git commit --ammend 				|
+|	* Roll Back to Previous commit (This will create a new commit)			-		git revert HEAD					|
+|																			|
+|																			|
+|	 ---------------																|
+|-------|  GIT HISTORY  |-------------------------------------------------------------------------------------------------------------------------------
+|	 ---------------																|
+|																			|
+|	* Detail Commit History								-		git log						|
+|	* Commit History with patch that was created and deleted			-		git log -p					|
+|	* Commit History with Changes that were made in commit				-		git log --stat					|
+|	* Display the information about the commit and associated patch			-		git show					|
+|	* Commit History in one line							-		git log --oneline				|
+|	* Commit History in one line with graph						-		git log --graph --oneline			|
+|																			|
+|																			|
+|	 ------------																	|
+|-------|  STASHING  |----------------------------------------------------------------------------------------------------------------------------------
+|	 ------------																	|
+|																			|
+|	* Save Un-commited changes in stash (NOTE: Remove Changes from Working Tree)	-		git stash					|
+|	* List of saved stashes								-		git stash list					|
+|	* Apply a stash and remove it from stash list					-		git stash pop stash@{x}				|
+|	* Apply a stash and keep it in stash list					-		git stash apply stash@{x}			|
+|	* To remove from stash list							-		git stash drop stash@{x}			|
+|																			|
+|																			|
+|	 -----------																	|
+|-------|  TAGGING  |-----------------------------------------------------------------------------------------------------------------------------------
+|	 -----------																	|
+|																			|
+|	* List Existing tags in Git							-		git tags					|
+|	* Create an annotated tag (Temporary tag)					-		git tag -a v2.5 -m 'Added Version 2.5'		|
+|	* Create Lightweight tag (Doesn't change)					-		git tag v2.5					|
+|	* To add commit after commiting							-		git tag -a v1.2 <commit_checksum>		|
+|	* Push Tags to remote server (Tags will not be automatically pushed)		-		git push origin v1.2				|
+|	* To push Muliple tag at same time						-		git push origin --tags				|
+|	* Delete a tag on local repository						-		git tag -d v1.2					|
+|	* Delete a tag from remove repository						-		git push origin :refs/tags/v1.2			|
+|	* Delete a tag from remove repository (Alternative)				-		git push origin --delete v1.2			|
+|																			|
+|																			|
+|	 ----------																	|
+|-------|  REMOTE  |------------------------------------------------------------------------------------------------------------------------------------
+|	 ----------																	|
+|																			|
+|	* Lists remote reposository							-		git remote					|
+|	* Origin of remote repository verbosely						-		git remote -v					|
+|	* Display origin of Remote repository						-		git remote show origin				|
+|	* Adding Remote Repositories to Local Repository				-		git remote add origin <url>			|
+|	* Remove Remote Repository which is Linked to Local Repository			-		git remote remove origin			|
+|	* Rename Remotes								-		git remote rename <old_remote> <new_remote>	|
+|	* Remove Remotes								-		git remote remove <remote_name>			|
+|	* Update all branches and set to track remote one, but not merge any changes	-		git remote update				|
+|	* Remove Existing Remote Repo Locally & Add New Remote Repository		-		git remote set-url origin <url>			|
+|																			|
+|																			|
+|	 ------------																	|
+|-------|  BRANCHES  |----------------------------------------------------------------------------------------------------------------------------------
+|	 ------------																	|
+|																			|
+|	* List of Local branches							-		git branch					|
+|	* List local and remote branches						-		git branch -a					|
+|	* List Last commits on each branch						-		git branch -v					|
+|	* Create New branch								-		git branch <branch_name>			|
+|	* Switch to branch								-		git checkout <branch_name>			|
+|	* Create and switch to new branch						-		git checkout -b <branch_name>			|
+|	* Rename branch name								-		git branch -m <old_name> <new_name>		|
+|	* Delete Local branch								-		git branch -d <branch_name>			|
+|	* Delete Local branch forcefully						-		git branch -D <branch_name>			|
+|	* Compare Branches								-		git diff <branch_1>..<branch_2>			|
+|	* Push Local branch to Remote repository					-		git push -u origin <branch_name>		|
+|	* Delete Remote branch								-		git push origin :<branch_name>			|
+|											-		git push --delete origin <branch_name>		|
+|																			|
+|																			|
+|	 ---------																	|
+|-------|  MERGE  |-------------------------------------------------------------------------------------------------------------------------------------
+|	 ---------																	|
+|																			|
+|	* Update only the branch you're on, but not merge any changes in		-		git fetch					|
+|	* Merge Changes from Different Branch						-		git merge <branch_name>				|
+|	* Move a branch further up and make commit Linear (Avoid Remote Repository)	-		git rebase <branch_name>			|
+|	* Merge Dev Branch to Master Branch						-		1. git merge master (on dev branch)		|
+|											-		2. git checkout master				|
+|											-		3. git merge development			|
+|	* Update and merge any remote changes of the current branch you're on		-		git pull					|
+|																			|
+|																			|
+|	 --------																	|
+|-------|  PUSH  |--------------------------------------------------------------------------------------------------------------------------------------
+|	 --------																	|
+|																			|
+|	* Update Local Changes to Remote Repository					-		git push					|
+|	* Update Local Changes to Remote Repository with newly created branch		-		git push -u origin <branch>			|
+|																			|
+|																			|
+|	 -------------------------															|
+|-------|  ADD SSH KEY TO GITHUB  |---------------------------------------------------------------------------------------------------------------------
+|	 -------------------------															|
+|																			|
+|	* Create A New SSH KEY								-		ssh-keygen -t ed25519 -C "user@gmail.com"	|
+|	* View Newly Created SSH KEY							-		ls -al ~/.ssh					|
+|	* Copy The Data Inside id_ed25519.pub						-		nano ~/.ssh/id_ed25519.pub			|
+|	* Github > Settings > SSH > Add New SSH						-		paste the data inside id_ed25519.pub		|
+|	* Test If SSH Is Linked Successfully						-		ssh -T git@github.com				|
+|	* Change Passcode For SSH-KEY							-		ssh-keygen -p -f ~/.ssh/id_ed25519		|
+|																			|
+|																			|
+ -------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+							 ---------------------------------------------------------
+							|							  |
+ -------------------------------------------------------|  DELETE ALL YOUR COMMIT HISTORY BUT KEEP CURRENT STATE  |-------------------------------------
+|							|     (NOTE: WILL DELETE ALL PREVIOUS COMMIT HISTORY)	  |					|
+|							|							  |					|
+|							 ---------------------------------------------------------					|
+|																			|
+|	1. Create a new orphan branch							-		git checkout --orphan <new_branch_name>		|
+|	2. Add all the files to that branch						-		git add -A					|
+|	3. Commit changes to that branch						-		git commit -am 'commit message'			|
+|	4. Delete the master branch							-		git branch -D master				|
+|	5. Rename orphan branch 							-		git branch -m master				|
+|	6. Force update your repository							-		git push -f origin master			|
+|																			|
+ -------------------------------------------------------------------------------------------------------------------------------------------------------

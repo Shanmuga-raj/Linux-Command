@@ -23,7 +23,7 @@ if [ -e $location ]
 then
 	echo "'$location' - Directory exists"
 	echo "Now checking for, '$file_name'"
-	if [ -e $location/$file_name ]						# -e - check if file / directory exist
+	if [ -e $location/$file_name ]					# -e - check if file / directory exist
 	then
 		echo "'$file_name' - Exists"
 		echo "Checking whether '$file_name' is a file or directory"
@@ -112,7 +112,7 @@ done
 
 for file in /home/raj/Documents/*
 do
-	if [ -d "$file" ]							# "$file" - Incase, If file name has any space in it this will help.
+	if [ -d "$file" ]								# "$file" - Incase, If file name has any space in it this will help.
 	then 
 		echo "$file - its a Directory"
 	elif [ -f "$file" ]
@@ -212,11 +212,11 @@ done
 # $0 determine script name, after 9th parameter use {} eg: ${10}
 # You can set parameters to pass:
 
-if [ $# -lt 3 ]									# Counts Number of Parameter included when script was executed.
+if [ $# -lt 3 ]										# Counts Number of Parameter included when script was executed.
 then 
 	echo "You Need to Include 3 Parameter $(basename $0) 2 5 raj "		# basename eliminates path and return only the filename.
 	echo "You Need to Include 3 Parameter $(basename ${!#}) 2 5 raj"	# ${!#} - Gets the Last parameter. If no parameter is passed then 
-										# filename will be displayed.
+																		# filename will be displayed.
 else
 	sum=$[ $1 * $2 ]
 	echo First Parameter is: $1
@@ -247,7 +247,7 @@ done
 # Using Shift: (run script by passing parameter)
 
 echo original parameter: $*
-shift 2										# Shift by 2 value
+shift 2												# Shift by 2 value
 echo New parameter: $*
 
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------#
@@ -267,7 +267,7 @@ done
 
 # Read Input From User:
 
-echo -n "What's Your Name: "							# -n - suppress new line character
+echo -n "What's Your Name: "						# -n - suppress new line character
 read name
 echo "Hello $name, Welcome!!!"
 
@@ -275,7 +275,7 @@ echo "Hello $name, Welcome!!!"
 
 # Alternative method for Read:
 
-read -p "Enter Your age: " age							# -p - display a prompt and get input in a single line
+read -p "Enter Your age: " age						# -p - display a prompt and get input in a single line
 days=$[ $age*365 ]
 echo "You're $days days old!"
 
@@ -290,7 +290,7 @@ echo Hello $REPLY!!!
 
 # Time Out in read:
 
-if read -t 10 -p "Your Name: "							# -t - used to set timeout in seconds
+if read -t 10 -p "Your Name: "						# -t - used to set timeout in seconds
 then
 	echo "Hello $REPLY!!!"
 else
@@ -301,8 +301,8 @@ fi
 
 # Automatic Exit after typing preset number of character:
 
-read -n1 -p "Do you want to continue [Y/N]? "					# -n option with value of 1 - accept only single character and 
-										# we dont need to press enter too
+read -n1 -p "Do you want to continue [Y/N]? "		# -n option with value of 1 - accept only single character and 
+													# we dont need to press enter too
 case $REPLY in
 Y | y) 	echo
 		echo "fine, continue on...";;
@@ -342,7 +342,7 @@ fi
 # Renaming Format of .txt File to .csv:
 
 for file in *.txt: do
-	name=$(basename "$file" .txt)						# Get the file name and leaving format
+	name=$(basename "$file" .txt)					# Get the file name and leaving format
 	mv "$file" "name.csv"
 done
 
@@ -362,22 +362,22 @@ unset arr
 # Find Substring from a filename and remove that file:
 
 for file in *.srt; do
-	if [[ $file == *"substring"* ]]; then					# Normal Search: Check if filename has a word substring in it
-	if [[ $file =~ .*substring.* ]]; then					# RegExp Search: Check if filename has a word substring in it
+	if [[ $file == *"substring"* ]]; then			# Normal Search: Check if filename has a word substring in it
+	if [[ $file =~ .*substring.* ]]; then			# RegExp Search: Check if filename has a word substring in it
 		rm $file
 	fi
 done
 
 #Alternative one liner:
 
-rm *substring*.srt								# No Loops or No RegExp Needed
+rm *substring*.srt									# No Loops or No RegExp Needed
 
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------#
 
 # Removing bulk files from both parent and child directory:
 
-find . -type f -name '*.html' -delete						# find - command to search something; 	. - from current directory youre in
-										# f - only search for files; 		-name - name ending with .html
-										# -delete - find has an option delete
+find . -type f -name '*.html' -delete				# find - command to search something; 	. - from current directory youre in
+													# f - only search for files; 		-name - name ending with .html
+													# -delete - find has an option delete
 
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------#
