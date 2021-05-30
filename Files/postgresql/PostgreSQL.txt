@@ -1,0 +1,187 @@
+
+INSTALLATION AND SETUP:
+```````````````````````
+
+INSTALL POSTGRESQL							-			sudo apt-get install postgresql-12 postgresql-contrib
+Check if installed properly						-			sudo systemctl status postgresql
+Switch over to the Postgres account					-			sudo -i -u postgres
+Access a Postgres prompt						-			psql
+Accessing a Postgres Prompt Without Switching Accounts			-			sudo -u postgres psql
+Help									-			\?
+Exit out of the PostgreSQL prompt					-			\q
+Change Password								-			\password (or) su -c "psql" - postgres
+
+
+DATABASE:
+`````````
+
+Create a New Database							-			CREATE DATABASE db_name;
+List of Database							-			\l
+Connect to a Database							-			\c db_name (or) psql -h localhost -p 5432 -U 
+													postgres db_name
+Delete a Database							-			DROP DATABASE db_name;
+
+
+TABLE:
+``````
+
+Create Table								-			CREATE TABLE table_name (
+												col name + data type + constraints if any );
+												
+												Example:- Without Constraints:
+													CREATE TABLE person ( 
+														id INT,
+														name VARCHAR(50),
+														gender VARCHAR(7),
+														d_o_b DATE );
+
+												Example:- Without Constraints:
+													CREATE TABLE person ( 
+														id BIGSERIAL NOT NULL PRIMARY KEY,
+														name VARCHAR(50) NOT NULL,
+														gender VARCHAR(7) NOT NULL,
+														d_o_b DATE NOT NULL 
+														email VARCHAR(150) );
+Info of Table								-			\d
+List Functions								-			\df
+Detail Info of Table							-			\d table_name
+Delete Table								-			DROP TABLE table_name;
+Insert data to Table							-			INSERT INTO table_name ( name, gender, d_o_b, email )
+													VALUES ( 'dinesh', 'MALE', date '1999-05-02' );
+Insert data from a file							-			\i path_to_file
+Select Table								-			SELECT * from table_name;
+Select Table Col							-			SELECT col_name from table_name;
+Order By Ascending or Descending (Ascending is Default - ASC)		-			SELECT * from table_name ORDER BY col_name; 
+												SELECT * from table_name ORDER BY col_name DESC;
+Group By								-			SELECT country_of_birth, COUNT(*) FROM person
+													GROUP BY country_of_birth;
+Group By having								-			SELECT country_of_birth, COUNT(*) FROM person
+													GROUP BY country_of_birth HAVING COUNT(*) > 5;
+
+Display only different values and ignore duplicate values		-			SELECT DISTINCT col_name FROM table_name 
+													ORDER BY col_name;
+Delete a record								-			DELETE FROM table_name WHERE id = 1;
+Update a record								-			UPDATE table_name SET email  = 'new@email.com'
+													WHERE id = 5;
+Avoid Conflict								-			INSERT INTO table_name (col_name, col_name1, col_name2)
+													VALUES (val, val1, val2) 
+													ON CONFLICT (col_name) DO NOTHING;
+Make Changes in Conflict						-			INSERT INTO table_name (id, name, email) 
+													VALUES (7, 'raj', 'raj.new@gmail.com') 
+													ON CONFLICT (id) DO UPDATE 
+													SET email = EXCLUDE.email;
+
+
+Filter Based On Condition:
+``````````````````````````
+
+WHERE									-			SELECT * FROM table_name 
+													WHERE gender = 'Female';
+WHERE, AND								-			SELECT * FROM table_name 
+													WHERE gender = 'Female'
+													AND country_of_birth = 'Poland';
+WHERE, AND, OR								-			SELECT * FROM table_name WHERE gender = 'Female'
+													AND (country_of_birth = 'Poland'
+													OR country_of_birth = 'China');
+IN									-			SELECT * FROM table_name WHERE gender = 'Female'
+													AND country_of_birth
+													IN ('Poland', 'China');
+BETWEEN									-			SELECT * FROM table_name 
+													WHERE date_of_birth 
+													BETWEEN DATE '2000-01-01' AND '2015-01-01';
+LIKE									-			SELECT * FROM table_name 
+													WHERE email LIKE '%@gmail.com%';
+ILIKE (Used for CASE-SENSITIVE)						-			SELECT * FROM table_name 
+													WHERE name 
+													ILIKE 'r%';
+MAX									-			SELECT MAX(col_name) FROM table_name;
+MIN									-			SELECT MIN(col_name) FROM table_name;
+AVG									-			SELECT AVG(col_name) FROM table_name;
+ROUND									-			SELECT ROUND(AVG(col_name)) FROM table_name;
+ROUND BY 2 DECIMAL							-			SELECT ROUND(AVG(col_name), 2) FROM table_name;
+SUM									-			SELECT SUM(col_num) FROM table_name;
+AS									-			SELECT col_name1, col_name2
+													AS original_price, ROUND(AVG(col_name), 2)
+													AS discount_price FROM table_name;
+COALESCE								-			SELECT COALESCE(col_name, 'Def Val') FROM table_name;
+
+
+CONSTRAINT:
+```````````
+
+Deleting primary key							-			ALTER TABLE table_name CONSTRAINT constraint_name;
+Adding primary key							-			ALTER TABLE table_name ADD PRIMARY KEY (col_name);
+Adding Unique constraint						-			ALTER TABLE table_name ADD CONSTRAINT new_name_for_col
+													UNIQUE (col_name_needed_to_be_unique);
+Deleting Unique constraint						-			ALTER TABLE table_name DROP CONSTRAINT constraint_name;
+Insert Data only if constraint is True					-			ALTER TABLE table_name ADD CONSTRAINT new_name_for_col
+													CHECK (gender = 'Female' OR gender = 'Male');
+
+
+Comparison:
+```````````
+
+Equal to								-			=
+Less than								-			<
+Greater than								-			>
+Lesser than or equal to							-			<=
+Greater than or equal to						-			>=
+Not Equal to								-			<>
+
+
+ARITHMETIC:
+```````````
+
+ADD									-			+
+SUB									-			-
+MUL									-			*
+MOD									-			%
+DIV									-			/
+POWER									-			^
+FACTORIAL								-			!
+
+
+Display the first 10 rows from table					-			SELECT * FROM table_name LIMIT 10;
+Display from row 10 to end of table					-			SELECT * FROM table_name OFFSET 10;
+Display the row 6 to 10 from table					-			SELECT * FROM table_name OFFSET 5 LIMIT 5;
+Same as Limit but SQL standard (FETCH)					-			SELECT * FROM table_name OFFSET 5 FETCH FIRST 5 ROW ONLY;
+
+
+Time & Date:
+````````````
+
+To get Current Date and Time						-			SELECT NOW();
+To get Current Date							-			SELECT NOW()::DATE;
+To get Current Time							-			SELECT NOW()::TIME;
+Add Ten Month to Current Date						-			SELECT NOW() + INTERVAL '10 MONTH';
+Subtract a year from Current Date					-			SELECT NOW() - INTERVAL '1 YEAR';
+To Display Only Date							-			SELECT (NOW() + INTERVAL '15 DAY')::DATE;
+Extract Year from the date (YEAR, MONTH, DAY, DOW, CENTURY)		-			SELECT EXTRACT(YEAR FROM NOW());	
+Get the Age								-			SELECT name, date_of_birth, AGE(NOW(), date_of_birth)
+													AS age FROM person;
+
+
+FOREIGN KEY:
+````````````
+
+Update Table using Foreign Key						-			UPDATE table SET car_id = 2 WHERE id = 1;
+Inner Join								-			SELECT * FROM table1 JOIN table2 
+													ON table1.foriegn_key_col = table2.primary_key_col;
+Left Join								-			SELECT * FROM table1 LEFT JOIN table2
+													ON table2.primary_key_col = table1.foriegn_key_col;
+Delete Record using Foreign Key						-			DELETE FROM table WHERE id = 50;
+Generate CSV file from output						-			\copy (SELECT * FROM person LEFT JOIN car
+													ON car.id = person.car_id) 
+													TO '/home/raj/Downloads/result.csv'
+													DELIMITER ',' HEADER;
+Serial & Sequence							-			SELECT * FROM person_id_seq;
+Skip A Sequence								-			SELECT nextval('person_id_seq'::regclass);
+Reset to Correct Sequence						-			ALTER SEQUENCE person_id_seq RESTART WITH 10;
+
+
+Extensions:
+```````````
+
+Select Extension							-			SELECT * FROM pg_available_extensions;
+Download Extension							-			CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+Generate a UUID key							-			SELECT uuid_generate_v4();

@@ -123,9 +123,11 @@ PACKAGES:
 `````````
 	|
 	|--> List Debian Packages					-		dpkg -l
-	|--> Search Debian Packages					-		dpkg -l | grep xxx
+	|--> Search Repository Using Package Name			-		apt-cache search "firefox"
+	|--> Verify Whether Package Installed Successfullt		-		dpkg -l | grep xxx
 	|--> Install a Package Manager					-		sudo apt install pkgname
-	|--> Remove a Package Manager					-		sudo apt remove pkgname
+	|--> Remove a Package Except Configuration File			-		sudo apt remove pkgname
+	|--> Remove a Package With Configuration File			-		sudo apt purge pkgname
 	|--> Install a Debian Packages					-		sudo dpkg -i pkgname.deb (i - Install)
 	|--> Remove a Debian Packages					-		sudo dpkg -r pkg (r - Remove)
 	|--> List Manually Installed Packages				-		comm -23 <(apt-mark showmanual | sort -u) <(gzip -dc /var/log/installer/

@@ -50,6 +50,8 @@
 |	* Discard Changes in file on Working Directory before staging			-		git restore <file>				|
 |	* Discard Changes after File has been Staged					-		git restore --stages <file>			|
 |	* Completely remove all staged and unstages changes to tracked file		-		git reset --hard				|
+|	* Delete most recent commit, but keep the work done				-		git reset --soft HEAD~1				|
+|	* Delete Most Recent Commit, and also destroy the work done			-		git reset --hard HEAD~1				|
 |	* Rename File name and add it to staging area					-		git mv <file>					|
 |	* Delete Commited File which doesn't have any changes				-		git rm <file>					|
 |	* Delete Files which has new changes						-		git rm -f <file>				|
@@ -138,6 +140,8 @@
 |	* Push Local branch to Remote repository					-		git push -u origin <branch_name>		|
 |	* Delete Remote branch								-		git push origin :<branch_name>			|
 |											-		git push --delete origin <branch_name>		|
+|	* Restore Youe Branch to Where it was before					-		git reflog					|
+|											-		git reset --hard <commit_id> (id_before_rebase)	|
 |																			|
 |																			|
 |	 ---------																	|
