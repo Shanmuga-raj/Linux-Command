@@ -92,6 +92,14 @@ FILE:
 	|	|--> Delete Files From Archive				-		tar -f fname.tar --delete xxx yyy
 	|
 	|
+	|--> Transfer Files Using SCP:
+	|    `````````````````````````
+	|	|
+	|	|--> Transfer Securely to Another Machine		-		scp file.txt raj@server:$HOME
+	|	|--> Transfer Multiple Files				-		scp /my_folder/*.txt raj@server:$HOME
+	|	|--> Download Files From Remote Server			-		scp raj@server:$HOME/file.txt  /local/machine/path
+	|
+	|
 	|--> CREATE-INSPECT-KEY-PAIR (ENCRYPT / DECRYPY USING OPENSSL):
 	     ``````````````````````````````````````````````````````````
 		|
@@ -434,6 +442,7 @@ LOG-FILES:
 
 
 System Kernel Version                           			-		uname -r
+List Available Shell							-		cat /etc/shells
 Set Local Time Date (DualBoot)                 				-		timedatectl set-local-rtc 1
 Change Hostname								-		hostnamectl set-hostname newname
 Change Date                                     			-		sudo date -s "1999-02-05 00:00:00"

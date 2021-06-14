@@ -1,0 +1,496 @@
+!/bin/bash
+
+Determine Current Shell								-		echo $0 (or) ps -p $$ (or) echo $SHELL
+Debug a Script									-		bash -x myscript.sh (or) bash --debug myscript.sh
+Exit Script If any Commands fails or return non-zero status (Life Saver)	-		set -e; cd~/non/existent/directory; rm -rf *
+
+Install a Virtual Environment							-		pip install https://github.com/pypa/virtualenv/tarball/15.0.2
+Create a New Virtual Environment						-		virtualenv --python=python3.8 my_env
+Activate the Environment							-		source my_env/bin/activate
+
+
+
+BASIC-INBUILT-COMMANDS:
+````````````````````````
+Listing Files									-		ls
+Display Content Of A File							-		cat
+Count Words									-		wc
+Copy Files									-		cp
+Moving Files									-		mv
+Renaming Files, Directories							-		mv
+Deleting Files									-		rm
+Change Directory								-		cd
+Print Working Directory								-		pwd
+Creating Directories								-		mkdir
+Removing Directories								-		rmdir
+Change User Permission								-		chmod
+Change Owner									-		chown
+Change Group									-		chgrp
+Sequence Of Number								-		seq
+Displays Information about User							-		who
+Extended who command								-		w
+Read From Standard Input							-		read
+Clear Terminal									-		clear
+Terminal History								-		history
+Restart Execution that\'s been Stoped						-		fg
+Locates Files and Directories							-		find
+Display the System Date and Time						-		date
+Display the Calendar								-		cal
+Status of System Print Queues							-		lpstat
+Enable or Start print Queue							-		enable
+Disable or Stop Print Queue							-		disable
+Displays base filename of a string parameter					-		basename
+Writes out selected characters							-		cut
+Programming language to parse characters					-		awk
+Stream Editor									-		sed
+Internal Field Seperator (split)						-		IFS
+Shell Level									-		SHLVL
+Search String Of Characters							-		grep
+Sort Text Alphabetically							-		sort
+Running Processes								-		ps
+List of Running Processes							-		top
+Kill Processes									-		kill
+File Transfer Protocol								-		ftp
+Connect to Remote Unix Machine							-		telnet
+Information About User								-		finger
+Append Output to File								-		tee
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+SYMBOLS & METACHARACTERS:
+``````````````````````````
+
+Pipe Previous Output to Next Command						-		|				# Pipe
+Run in Background (use at end of command)					-		&
+Match Any Single Character							-		.
+Match the Preceding Item Zero or One Time					-		?
+Match the Preceding Item Zero or More Times					-		*
+Match the Preceding Item One or More Times					-		+
+Runs The Enclosed Command In A Sub-Shell					-		( )
+Assigns value to a variable and does math in a shell				-		(( ))
+Evaluates the enclosed Expression						-		$(( ))				# echo "$(( 5 + 5 ))"
+Refer Variable and Array							-		${ }				# name="raj" echo "hey ${name}"
+String Comparison								-		< >
+Command Substitution								-		$( ) (or) 'command' (or) `command`
+Special characters between these quotes have their special meaning		-		""				# Weak Quote
+Any Special characters between these quotes lose their special meaning		-		''				# Strong Quote
+Any character immediately following the backslash loses its special meaning	-		\
+Anything inbetween back quotes will be treated as command and executed		-		``
+Conditional Expression								-		[ ] or [[ ]]
+Regular Expression Matching							-		=~
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+STRING:
+````````
+Set a Positional Parameter $1							-		set -- 012345abcdef
+Get Substring of the String from 5th Index					-		echo "${1:5}"
+Get Substring of the String upto 5th Index					-		echo "${1::5}"
+Set a Positional Parameter $1, $2, $3, ... (Here Index starts from 1)		-		set -- 0 1 2 3 4 5 a b c d e f
+Get Substring of the String from 5th Index					-		echo "${@:5}"
+Length Of String								-		var='I am a string'; echo "${#var}"
+
+Create two String and Store it in Variable					-		x="hello world"; y="BYE"
+Convert String First Character to Uppercase					-		echo "${x^}"			# Hello World
+Convert String to Uppercase							-		echo "${x^^}"			# HELLO WORLD
+Convert String to Lowercase (Alternative)					-		declare -u x="$x"; echo "$x"	# HELLO WORLD
+Convert String First Character to Lowercase					-		echo "${y,}"			# bYE
+Convert String to Lowercase							-		echo "${y,,}"			# bye
+Convert String to Lowercase (Alternative)					-		declare -l y="$y"; echo "$y"	# bye
+ToggleCase									-		z="Hello World"; echo "${x~~}"	# hELLO wORLD
+
+Create a New String								-		var='I am a string'
+Delete A Pattern From Beginning Of A String (Shortest Match)			-		echo "${var#*a}"		# m a string
+Delete A Pattern From Beginning Of A String (Longest Match)			-		echo "${var##*a}"		# string
+Delete A Pattern From End Of A String (Shortest Match)				-		echo "${var%a*}"		# I am 
+Delete A Pattern From End Of A String (Longest Match)				-		echo "${var%%a*}"		# I 
+
+Replace String (First Match)							-		echo "${var/a/A}"		# I Am a string
+Replace String (All Match)							-		echo "${var//a/A}"		# I Am A string
+Replace String (Match at the Beginning)						-		echo "${var/#I/Y}"		# Y am a string
+Replace String (Match at the End)						-		echo "${var/%g/N}"		# I am a strinN
+Remove Pattern From String							-		echo "${var/g/}"		# I am a Strin
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+VARIABLE:
+``````````
+Valid Variable									-		a - z or A - Z or 0 - 9 or _
+Define Variable									-		NAME="raj"
+Access Variable									-		echo $NAME
+Make a Variable Constant							-		readonly NAME
+Unset / Delete Variable								-		unset NAME
+Append Some String to User Input Value						-		read action echo "I'm ${action}ing"
+Classic variable print								-		x="hey"; y=x; echo "${y}"	# x
+Parameter Indirect Expansion (${!var} - used to print linked variable)		-		x="hey"; y=x; echo "${!y}"	# hey
+
+
+SPECIAL/INTERNAL VARIABLE:	# Example - 0.1
+``````````````````
+Current Shell Process ID (PID)							-		echo $$
+File Name of Script / Current Shell Name					-		echo $0
+First Parameter Passed To Script						-		echo $n				# $n works fine for $1 to $9
+First Parameter Passed To Script						-		echo ${10}			# above $9 use ${}
+Print Number Of Arguments Passed To Script					-		echo $#
+Process Number Of Last Background Command					-		echo $!
+Exit Status Of Last Command Executed						-		echo $?
+All Arguments are Double Quoted							-		echo $*				# Example - 0.2
+All Arguments are Individually Double Quoted					-		echo $@
+Take previously passed argument and store it					-		echo $_
+Take Last Parameter Passed to Previous Command					-		echo !$
+Substitution For Previous Command						-		echo !!
+Internal Field Seperator							-		$IFS
+Print Home Directory								-		$HOME
+Path Environment Variable used to look-up Executable				-		$PATH
+Print Hostname assigned to System						-		$HOSTNAME
+Print the Hardware of System							-		$HOSTTYPE
+Print OS Type									-		$OSTYPE
+Print Number Of Seconds Script Running						-		$SECONDS
+Print The Shell Level								-		$SHLVL
+Print Information About OS as well as Hardware					-		$MACHTYPE
+Print Line Number								-		$LINENO
+Current Working Directory							-		$PWD
+Previous Working Directory							-		$OLDPWD
+Random Integers Between 0 and 32767						-		$RANDOM
+If no Variable is Specified for read then this will be Default			-		$REPLY
+Print Number Of Remembered Commands						-		$HISTSIZE
+
+
+
+
+VARIABLE SUBSTITUTION:	# Example - 0.3
+``````````````````````
+Subtitute The Value Of Variable							-		${NAME}
+If variable is Null, Print this But Not Set to Variable				-		${NAME:-"Raj"}
+If variable is Null, Print this Also Set to Variable				-		${NAME:="Shanmuga Raj"}
+Check Whether Variable Is Set Correctly						-		${NAME:?"Shanmuga Raj"}
+If variable is Already Set Substitute this. But Dont Set			-		${NAME:+"Raj"}
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+ARRAY:
+``````
+Declare an Array								-		declare -A NAMES
+Create a New Array For Person and their Age					-		NAMES=("shanmugaraj" "dinesh" "suresh") AGE=(12 20 16)
+Add Data to Array / Assign By Using Index					-		NAMES[4]="Raj" (or) NAMES+=("Ravi" "raj")
+Replace Entire Array With New Parameter						-		NAMES={"${array[@]}" ""}
+Print All Elements, Each Quoted Seperately					-		echo ${NAMES[@]}
+Print All Element as Single Quoted String					-		echo ${NAMES[*]}
+Create a Array Element Ranges From 1 to 10					-		array=(`seq 1 10`)		# 1 2 3 4 5 6 7 8 9 10
+Print All Elements From Index 3 to 7, Each Quoted Seperately			-		echo "${array[@]:3:7}"		# 4 5 6 7 8 9 10
+Print All Elements From Index 5 to End, Each Quoted Seperately			-		echo "${array[@]:4}"		# 5 6 7 8 9 10
+Print Array Length								-		echo "${#array[@]}"		# 10
+Print Certain String Element in Array						-		echo "${#NAMES[0]}"		# 11
+Append New Parameter At the end of the Existing Array				-		NAMES=("${NAMES[@]}" "raj" "ravi")
+Add Element at the Beginning of an Existing Array				-		NAMES=("vicky" "${NAMES[@]}")
+Insert Element "praveen" to Array At Index 5					-		NAMES=("${arr[@]:0:$i}" 'praveen' "${arr[@]:$i}")
+Delete Element from Array of Index 4						-		unset -v 'NAMES[4]'
+Re-Index Array (Recreate If Array has any gaps)					-		NAMES=("${array[@]}")
+Merge Array									-		PERSON=("${NAMES[@]}" "${AGE[@]}")
+Delete Array									-		unset PERSON
+Delete Single Element From Array (Index)					-		unset array[10]
+Add Prefix to Array NAMES							-		echo "${NAMES[@]/#/R.}"		# R.shanmugaraj R.dinesh ...
+Create an Array Using Brace Expansion						-		years=( $(printf '%s\n' 20{00..10}))
+Create an Array Using Brace Expansion With Incrementation			-		years=( 20{00..20..5} )
+Set Positional Parameter and Print Its Length (One Line)			-		set -- a b c d e f g 0 1 2; echo "${#@}"
+Set Positional Parameter and Print Its Length (Alternative)			-		set -- a b c d e f g 0 1 2; echo "$#"
+
+
+ASSOCIATIVE ARRAY: (Directories - Key, value Pair)
+``````````````````
+Mandatory To Declare An Array Before Initialization				-		declare -A person
+Initialize Elements								-		person[name]="Raj" person[age]="20" person[sex]="M"
+Initialization In Single Statement						-		person=([name]="Raj" [age]="20" [sex]="M")
+Get a Value From Associate Array Using Key					-		echo "${person[name]}"
+Print All Keys Present In Array							-		echo "${!person[@]}"
+Print All Values Present In Array						-		echo "${person[@]}"
+Count Associate Array Elements							-		echo "${#person[@]}"
+Splits Words by using spaces							-		fruits=(${"Apple Orange Banana Mango"// / })
+Split Words Using Other character						-		fruits=(${"Apple+Orange+Banana+Mango"//+/ })
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+ARITHMETIC OPERATOR:	# Example - 0.4
+````````````````````
+Addition									-		+ 				# Example: echo `expr 2 + 2`
+																# Example2: echo $(( 2 + 2 ))
+Subtraction									-		-				# Example: echo `expr 10 - 2`
+																# Example2: echo $(( 10 - 2))
+Multiplication									-		*				# Example: echo `expr 5 \* 2`
+																# Example2: echo $(( 5 * 2))
+Division									-		/				# Example: echo `expr 10 / 2`
+																# Example2: echo $(( 10 / 2))
+Modulus										-		%				# Example: echo `expr 2 % 2`
+Assign										-		=				# Example: a=$b
+Equality									-		==				# Example: [ $a == $b ]
+Not Equality									-		!=				# Example: [ $a != $b ]
+
+
+LOGICAL OPERATOR:	# Example - 0.5
+`````````````````
+Logical AND									-		&&
+Logical OR									-		||
+Not Equal To									-		!
+
+
+RELATIONAL OPERATOR:
+````````````````````
+Equality									-		-eq
+Not Equality									-		-ne
+Greater Than									-		-ge
+Lesser Than									-		-lt
+Greater Than or Equal To							-		-ge
+Lesser Than or Equal To								-		-le
+Logical OR									-		-o
+Logical AND									-		-a
+String is Empty or Not								-						# Example: [ $a ]
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+FILE TEST OPERATOR: (CONTROL STRUCTURES)
+```````````````````
+Check If String Length is Zero							-		-z				# Example: [ -z $a]
+Check String Length is Non Zero							-		-n				# Example: [ -n $a ]
+Check If Directory Exists or Not						-		-d				# Example: [ -d $file ]
+Check If File / Directory Exist or Not						-		-e				# Example: [ -e $file ]
+Check Its a File But Not A Directory						-		-f				# Example: [ -f $file ]
+Check If Its a File and Its a Symbolic Link					-		-h				# Example: [ -h $file ]
+Check If File Is Empty or Not							-		-s				# Example: [ -s $file ]
+Check If File Is Readable							-		-r				# Example: [ -r $file ]
+Check If File Is Writeable							-		-w				# Example: [ -w $file ]
+Check If File Is Executable							-		-x				# Example: [ -x $file ]
+Check Whether It Is Block Device (/dev/sdax)					-		-b				# Example: [ -b $device ]
+Check Whether It Is Character Device (/dev/pendrive)				-		-c				# Example: [ -c $device ]
+Check If Youre Owner Of File							-		-O				# Example: [ -O $file ]
+Check If File is Modified Since Its Last Read					-		-N
+File f1 is Newer Than File f2							-		f1 -nt f2
+File f1 is Older Than File f2							-		f1 -ot f2
+Both f1 and f2 are Hard Links to Same File					-		f1 -ef f2
+Return True If Strings are Equal (Not For Integers)				-		"$str" = "$str2"
+Return True If Strings are Not Equal (Not For Integers)				-		"$str" != "$str2"
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+FUNCTIONS:
+``````````
+Defining a Function								-		Hello() { echo "hello raj"}
+Invoke Above Function								-		Hello
+Pass Parameters									-		Welcome() { echo "Hello, $1 $2"}
+Invoke By Passing Parameters							-		Hello Shanmuga Raj
+Remove A Function Definition							-		unset -f 
+Defining A Function With Return Value						-		Hello() { return 25 }
+Capture Return value from Previous Function					-		ret=$?
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+BRACE EXPANSION:
+````````````````
+Print From 0 to 20								-		echo {000..020}
+Print From 0 to 20 with 2 Incrementation					-		echo {000..020..2}
+Combining Multiple Braces							-		echo {a..d}{1..4}
+Rename Filename Extension from .jar to .zip					-		mv filename.{jar,zip}
+Create Multiple Directory With Sub-Directories (SAFE TO RUN)			-		mkdir -p grandparentdir/parentdir_{1..5}/child_{1..3}
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+# Example - 0.1
+
+	echo "File Name: $0"
+	echo "First Parameter : $1"
+	echo "Second Parameter : $2"
+	echo "Quoted Values: $@"
+	echo "Quoted Values: $*"
+	echo "Total Number of Parameters : $#"
+
+	# Example - 0.1 - OUTPUT
+		# $ ./test.sh Shanmuga Raj R
+		# File Name: ./test.sh
+		# First Parameter : Shanmuga
+		# Second Parameter : Raj
+		# Quoted Values: Shanmuga Raj
+		# Quoted Values: Shanmuga Raj
+		# Total Number of Parameters : 3
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+# Example - 0.2
+
+	for i in $*
+		do
+		echo $i
+	done
+
+	# Example - 0.2 - OUTPUT
+		# $ ./test.sh Shanmuga Raj 20 Enginner Techie
+		# Shanmuga
+		# Raj
+		# 20
+		# Engineer
+		# Techie
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+# Example - 0.3
+
+	var="setted"
+
+	echo ${var:-"Default"}							# If variable has a value this has no effect
+	echo "Value is: ${var}"							# If variable is Null "Default" will be printed 
+										# but "Default" will not be set to variable it will still NULL
+
+	echo ${var:="Default"}							# If variable has a value this has no effect
+	echo "Value is: ${var}"							# If variable is Null "Default" will be printed 
+										# and also "Default" will be set to variable value
+
+	unset var								# "Default" is set previously. So, unset it.
+	echo ${var:+"Default"}							# If variable is NULL nothing will be done
+	echo "Value is: $var"
+
+	var="New"								# Set A "New" value to variable var
+	echo ${var:+"Default"}							# If variable is Not NULL it will print "Default" 
+										# but "Default" will not be set to variable
+	echo "Value is: $var"							# It will still be a Previous Value
+
+	echo ${var:?"New"}							# Check whether variable value is equal to default value
+	echo "Value is: ${var}"							# If variable is null It will throw an error
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+# Example - 0.4
+
+	val=`expr 2 + 2`							# Should be inbetween Backtick & Should have space between + symbol
+	echo "Two Plus Two is: $val"
+
+	# Example - 0.3 - OUTPUT
+		# $ ./test.sh
+		# Two Plus Two is: 4
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+# Example - 0.5
+
+	# Example - 0.5.1
+		[ a = b ] && echo "yes" || echo "no"
+	
+	# Example - 0.5.1
+	[ a = b ] && { echo "SUCCESS";
+		echo "hmm. They're same"; } \					# \ - Indicates Continuation Sign
+		|| { echo "FAILED";
+		echo "Nah. They're diffent"; }
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+1. CASE STATEMENT
+`````````````````
+
+# Example - 1.1
+
+	var=1
+	case $var in
+	1)
+		echo "Antartica"
+		;;
+	2)
+		echo "Brazil"
+		;;
+	3)
+		echo "Canada"
+		;;
+	esac
+
+	# Example - 1.1 - OUTPUT
+		# Antartica
+
+
+# Example - 1.2 (Fall Through - ;&)
+
+	var=1
+	case $var in
+	1)
+		echo "Antartica"
+		;&
+	2)
+		echo "Brazil"
+		;&
+	3)
+		echo "Canada"
+		;&
+	esac
+
+	# Example - 1.2 - OUTPUT
+		# Antartica
+		# Brazil
+		# Canada
+
+
+# Example - 1.3 (Fall Through Ony if Subsequent pattern Match - ;;&)
+
+	var=abc
+	case $var in
+	a*)
+		echo "Antartica"
+		;;&
+	xyz)
+		echo "Brazil"
+		;&
+	*b*)
+		echo "Canada"
+		;&
+	esac
+
+	# Example - 1.1 - OUTPUT
+		# Antartica
+		# Canada
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+Infinite Loops:
+```````````````
+
+# Example 1
+	while true; do
+		echo ok
+	done
+
+
+# Example 1
+	while :; do
+		echo ok
+	done
+
+
+# Example 3
+	until false; do
+		echo ok
+	done
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
