@@ -124,6 +124,8 @@ SYSTEM-UPDATE:
 	|
 	|--> Update Kernel						-		sudo apt full-upgrade
 	|--> Update Package Manager					-		sudo apt update && sudo apt upgrade -y
+	|--> Remove Unused Packages					-		sudo apt autoremove
+	|--> Remove All Local Repository of Downloaded Package files	-		sudo apt autoclean (or) sudo apt clean
 
 
 
@@ -255,10 +257,28 @@ WEB-DEVELOPMENT:
 	|
 	|--> Node Js							-		sudo apt-get install -y nodejs
 	|--> NPM							-		sudo apt install npm
+	|--> Get Latest Version of Node					-		sudo npm install npm@latest -g ( Try below commands if not working use this)
+	|	|
+	|	|--> Clean NPM Cache					-		sudo npm cache clean -f
+	|	|--> Install						-		sudo npm install -g n
+	|	|--> Get Stable Version					-		sudo n stable
+	|	|--> Install NPM Latest Version				-		sudo npm install npm@latest
+	|	|--> Final Install					-		npm install -g npm
+	|	|--> Get Latest Version of NPM				-		sudo n latest
+	|
+	|
 	|--> Browser Sync						-		sudo npm install -g browser-sync
 		|
 		|--> Start Browser Sync					-		browser-sync start --server --directory --files "*"
 		|--> Sync Including child folder			-		browser-sync start --server --files "**/*"
+
+
+REACT-NATIVE:
+`````````````
+	|
+	|-> Install react-native					-		sudo npm install -g expo-cli
+		|
+		|--> Initiate a New Project				-		expo init proj_name
 
 
 
