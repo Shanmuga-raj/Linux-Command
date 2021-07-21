@@ -108,7 +108,7 @@ FILE:
 		|--> Encrypt the file using public key			-		openssl rsautl -encrypt -pubin -inkey public_key.pem -in fname.txt 
 		|										-out n_fname.enc
 		|--> Decrypt the file using Private Key			-		openssl rsautl -decrypt -inkey private_key.pem -in n_file.enc
-		|--> Creata a Hash Digest 				-		openssl dgst -sha256 -sign private_key.pem -out fname.txt.sha256 fname.txt
+		|--> Create a Hash Digest 				-		openssl dgst -sha256 -sign private_key.pem -out fname.txt.sha256 fname.txt
 		|--> Hash Digest Verification				-		openssl dgst -sha256 -verify public_key.pem -signature 
 												fname.txt.sha256 fname.txt
 
@@ -268,17 +268,83 @@ WEB-DEVELOPMENT:
 	|
 	|
 	|--> Browser Sync						-		sudo npm install -g browser-sync
-		|
-		|--> Start Browser Sync					-		browser-sync start --server --directory --files "*"
-		|--> Sync Including child folder			-		browser-sync start --server --files "**/*"
-
-
-REACT-NATIVE:
-`````````````
+	|	|
+	|	|--> Start Browser Sync					-		browser-sync start --server --directory --files "*"
+	|	|--> Sync Including child folder			-		browser-sync start --server --files "**/*"
 	|
-	|-> Install react-native					-		sudo npm install -g expo-cli
+	|
+	|--> React
+	|	|
+	|	|--> Install Latest Version of NPM and NodeJS
+	|	|--> Install create-react-app utility			-		sudo npm -g install create-react-app
+	|	|--> Check Installed Correctly				-		create-react-app --version
+	|	|--> Create A New React Project				-		create-react-app test-app
+	|	|--> GoTo Newly Created App Directory			-		cd test-app
+	|	|--> Start Server					-		npm start
+	|
+	|
+	|--> React-Native
 		|
-		|--> Initiate a New Project				-		expo init proj_name
+		|--> Install react-native				-		sudo npm install -g expo-cli
+			|
+			|--> Initiate a New Project			-		expo init proj_name
+
+
+
+DOCKER:
+```````
+	|
+	|--> Installation
+	|	|
+	|	|--> Remove If Already Installed (Old Version)		-		sudo apt-get remove docker docker-engine docker.io containerd runc
+	|	|--> Get Latest Version From Official Site		-		curl -fsSL https://get.docker.com -o get-docker.sh
+	|	|--> Install Docker					-		sudo sh get-docker.sh
+	|	|--> Check Docker Version				-		docker --version
+	|
+	|
+	|--> Image
+	|	|
+	|	|--> Pull An Image From Docker Hub			-		docker pull ubuntu
+	|	|--> List Images					-		docker image ls
+	|	|--> Remove Image (Only If No Running Container)	-		docker rmi `IMAGE_ID`
+	|	|--> Push An Image To Docker Hub Registry		-		docker push `IMAGE_ID`
+	|
+	|
+	|--> Container
+	|	|
+	|	|--> Create a New Container				-		docker create ubuntu
+	|	|--> List Container					-		docker ps
+	|	|--> List All Container					-		docker ps -a
+	|	|--> Start An Existing Container			-		docker start `container_id`
+	|	|--> Pause Processes In Running Container		-		docker pause `container_id`
+	|	|--> Unpause Processes In Running Container		-		docker unpause `container_id`
+	|	|--> Restart Container					-		docker restart `container_id`
+	|	|--> Stop A Running Container				-		docker stop `container_id`
+	|	|--> Remove a Container					-		docker rm `container_id`
+	|	|--> Create and Run a New Container			-		docker run -d --name `test_server` -p 5050:80 httpd
+	|	|--> GoTo Interactive Mode Using Bash			-		docker exec -it `test_server` bash
+	|	|--> Exit from Interactive Mode				-		exit
+	|	|--> List the Changes In Container			-		docker diff `container_id`
+	|	|--> Save Your Own Modified Container			-		docker commit `container_id`
+	|	|--> Give Name For Your Container			-		docker tag `IMAGE_ID` myhttpd:v1
+	|	|--> Save Container as tar file				-		docker save myhttpd:v1 > my_own_container.tar
+	|	|--> Load A Local Container				-		docker load -i `my_own_container.tar`
+	|	|--> Create and Run a Ubuntu Container Interactively	-		docker run -it ubuntu /bin/bash
+	|
+	|
+	|--> Creating Own Image Using Docker File
+		|
+		|--> Create A New Directory and GoTo that Directory	-		mkdir MyDockerImage && cd MyDockerImage
+		|--> Create A New Docker File				-		touch Dockerfile
+		|--> Add the Following Content to Docker File		-		"""
+		|									FROM ubuntu
+		|									MAINTAINER raj
+		|									RUN apt-get update
+		|									CMD ["echo", "Hello, Test Passed"]
+		|									"""
+		|--> Build a Docker Image				-		sudo docker build -t new_image .
+		|--> List Docker Images					-		docker images
+		|--> Create A New Container Using Created Container	-		docker run --name sample_ccontainer new_image
 
 
 
@@ -320,9 +386,9 @@ TO-CREATE-A-NEW-PARTITION:
 		|
 		|-->PARTITION-TABLE:
 			|
-			|--> MBR [Master Boot Record]			-	Only 4 Primary Partition [mostly used in windows]
-			|--> GPT [GUID Partition Table]			-	Unlimited Partition 
-			|--> UEFI					-	Used for Default BIOS system (But it is a GPT label)
+			|--> MBR [Master Boot Record]			-		Only 4 Primary Partition [mostly used in windows]
+			|--> GPT [GUID Partition Table]			-		Unlimited Partition 
+			|--> UEFI					-		Used for Default BIOS system (But it is a GPT label)
 
 
 
@@ -466,6 +532,7 @@ List Available Shell							-		cat /etc/shells
 Set Local Time Date (DualBoot)                 				-		timedatectl set-local-rtc 1
 Change Hostname								-		hostnamectl set-hostname newname
 Change Date                                     			-		sudo date -s "1999-02-05 00:00:00"
+Reset Terminal Back to Default Preference				-		dconf reset -f /org/gnome/terminal/legacy/profiles:/
 OS Version								-		lsb_release -a (or) cat /etc/lsb-release
 Reboot Without Restarting System
 	|
