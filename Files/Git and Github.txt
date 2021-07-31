@@ -91,6 +91,7 @@
 |	* Apply a stash and remove it from stash list					-		git stash pop stash@{x}				|
 |	* Apply a stash and keep it in stash list					-		git stash apply stash@{x}			|
 |	* To remove from stash list							-		git stash drop stash@{x}			|
+|	* Remove Applied Stash and Go Back to Original State				-		git checkout .					|
 |																			|
 |																			|
 |	 -----------																	|

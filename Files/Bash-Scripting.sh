@@ -504,9 +504,71 @@ rm *substring*.srt								# No Loops or No RegExp Needed
 
 # Removing bulk files from both parent and child directory:
 
-find . -type f -name '*.html' -delete						# find - command to search something; 	. - from current directory youre in
-										# f - only search for files; 			-name - name ending with .html
+find . -type f -name '*.html' -delete						# find - command to search something;	. - from current directory youre in
+										# f - only search for files;		-name - name ending with .html
 										# -delete - find has an option delete
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+# String - Cut, Sed, tr, grep:
+
+
+# Find Certain word From Current Directory and Subdirectories:
+
+grep -rn "Word to Search"							# r - recursively on directory;		n - with line number
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+# Rename from "Plastic Memories EP(12).mp4" to "Plastic Memories - 12.mp4"
+tr -d "()"									# Delete '()' from string
+sed 's/EP/- /'									# Substitute '- ' by replacing EP
+fname=`echo $(basename "$file" .mp4) | tr -d "()" | sed 's/EP/- /'`
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+# Rename from "Elfen Lied S1-12 [720p][Dual] @Anime_Gallery.mkv" to  "Elfen Lied S1 - 12.mkv"
+sed 's/ \[.*//'									# Find the First Occurance of ' [' and '.*' matches any character followed
+										# by ' [' and replace the remaining characters with nothing
+fname=`echo $(basename "$file" .mkv) | sed 's/ \[.*//'`
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+# Rename From "AnimePahe_Orange_-_10_BD_720p_Beatrice-GJM.mp4" to "Orange - 10.mp4"
+cut -b 11-21									# Get Substring From String From Range 11 to 21
+sed 's/_/ /g'									# Replace '_' by ' ' globally
+fname=`echo $(basename "$file" .mkv) | cut -b 11-21 | sed 's/_/ /g'`
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+# 4. Rename From "[FliperrAni] Tokyo Magnitude 8.0 (Dual Audio)_Ep-01.mkv" to "Tokyo Magnitude 8.0 - 01"
+cut -b 14-									# Get Substring From Range 14 to the end of string
+sed 's/(.*).*-/- /'								# Replace "(Dual Audio)_Ep-" by "- "
+fname=`echo $(basename "$file" .mkv) | cut -b 14- | sed 's/(.*).*-/- /'`
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------#
+
+
+# 5. Rename From "[S-1] [Ep-12] Texhnolyze [Anime Clan].mkv" to "Texhnolyze-S1-Ep12"
+cut -c -24									# Get Substring upto 24 i.e, "[S-1] [Ep-12] Texhnolyze"
+tr -d "[]"									# Delete '[]' From  the string i.e, "S-1 Ep-12 Texhnolyze"
+\										# Escape Character For New Line
+sed 's/^\(...\)\(......\).\(.*\)$/\3 \1\2/'					# Group the substring and swap it i.e, "Texhnolyze S-1 Ep-12"
+										# where \1 is 'S-1', \2 is ' Ep-12', \3 is 'Texhnolyze '
+sed 's/-//g'									# Replace '-' with nothing globally i.e., "Texhnolyze S1 Ep12"
+sed 's/ /-/g'									# Replace Empty Space with '-' globally i.e., "Texhnolyze-S1-Ep12"
+fname=`echo $(basename "$file" .mkv) | cut -c -24 | tr -d "[]" | \
+sed 's/^\(...\)\(......\).\(.*\)$/\3 \1\2/' | sed 's/-//g' | sed 's/ /-/g'`
 
 
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------#
