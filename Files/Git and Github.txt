@@ -44,19 +44,32 @@
 |	* Stage all (new, modified, deleted) files					-		git add -A					|
 |	* Stage all (new, modified, deleted) files in current folder			-		git add .					|
 |	* Stage modified and deleted files only ignore new files			-		git add -u					|
+|	* Compare Modified Files							-		git diff					|
 |	* Show changes to files in the staged area					-		git diff --staged				|
 |	* Show All Changes thats been Added to tracked files				-		git diff HEAD					|
 |	* Discard Changes before staging						-		git checkout <file>				|
 |	* Discard Changes in file on Working Directory before staging			-		git restore <file>				|
 |	* Discard Changes after File has been Staged					-		git restore --stages <file>			|
-|	* Completely remove all staged and unstages changes to tracked file		-		git reset --hard				|
+|	* Completely remove all staged and unstages changes				-		git reset --hard				|
+|	* Discard Changes to one Certain File						-		git checkout -- `path/to/file.txt`		|
 |	* Delete most recent commit, but keep the work done				-		git reset --soft HEAD~1				|
 |	* Delete Most Recent Commit, and also destroy the work done			-		git reset --hard HEAD~1				|
 |	* Rename File name and add it to staging area					-		git mv <file>					|
 |	* Delete Commited File which doesn't have any changes				-		git rm <file>					|
 |	* Delete Files which has new changes						-		git rm -f <file>				|
-|	* Remove Untracked Files							-		git clean -f					|
 |	* Discard All Local Changes 							-		git restore . && git clean -f			|
+|																			|
+|																			|
+|	 ---------																	|
+|-------|  CLEAN  |-------------------------------------------------------------------------------------------------------------------------------------
+|	 ---------																	|
+|																			|
+|	* See which files will be Deleted (Dry Run Test)				-		git clean -n					|
+|	* See which Directories will be Deleted (Dry Run Test)				-		git clean -n -d					|
+|	* Force Remove Untracked Files							-		git clean -f					|
+|	* Force Remove Untracked Directories						-		git clean -f -d					|
+|	* Force Remove Untracked .gitignore Files					-		git clean -f -x					|
+|	* Delete File/Directory With Interactive Mode					-		git clean -f -i (or) git clean -f -d -i		|
 |																			|
 |																			|
 |	 ----------																	|
@@ -70,16 +83,19 @@
 |	* Roll Back to Previous commit (This will create a new commit)			-		git revert HEAD					|
 |																			|
 |																			|
-|	 ---------------																|
-|-------|  GIT HISTORY  |-------------------------------------------------------------------------------------------------------------------------------
-|	 ---------------																|
+|	 -------------------																|
+|-------|  GIT LOG HISTORY  |---------------------------------------------------------------------------------------------------------------------------
+|	 -------------------																|
 |																			|
 |	* Detail Commit History								-		git log						|
+|	* Display the information about the commit and associated patch			-		git show					|
 |	* Commit History with patch that was created and deleted			-		git log -p					|
 |	* Commit History with Changes that were made in commit				-		git log --stat					|
-|	* Display the information about the commit and associated patch			-		git show					|
+|	* Commit History with Changes that were made in commit with summary		-		git log --stat --summary			|
 |	* Commit History in one line							-		git log --oneline				|
+|	* Commit History in one line of last three commits				-		git log --oneline -3				|
 |	* Commit History in one line with graph						-		git log --graph --oneline			|
+|	* All Commit History as graph summary						-		git log --oneline --graph --all --decorate	|
 |																			|
 |																			|
 |	 ------------																	|
@@ -87,10 +103,16 @@
 |	 ------------																	|
 |																			|
 |	* Save Un-commited changes in stash (NOTE: Remove Changes from Working Tree)	-		git stash					|
+|	* Save Un-commited changes in stash with Name					-		git stash save <stash_name>			|
+|	* Stash Modified and Untracked Files (Newly Created File)			-		git stash save -u <stash_name>			|
 |	* List of saved stashes								-		git stash list					|
 |	* Apply a stash and remove it from stash list					-		git stash pop stash@{x}				|
 |	* Apply a stash and keep it in stash list					-		git stash apply stash@{x}			|
-|	* To remove from stash list							-		git stash drop stash@{x}			|
+|	* To remove specific stash list							-		git stash drop stash@{x}			|
+|	* To remove all stash list							-		git stash clear					|
+|	* Show Stash status								-		git stash show stash@{x}			|
+|	* Show Stash Changes								-		git stash show -p stash@{x}			|
+|	* Create a New Branch from Stash						-		git stash branch <new_branch>			|
 |	* Remove Applied Stash and Go Back to Original State				-		git checkout .					|
 |																			|
 |																			|

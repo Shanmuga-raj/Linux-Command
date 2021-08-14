@@ -307,6 +307,7 @@ DOCKER:
 	|	|--> Pull An Image From Docker Hub			-		docker pull ubuntu
 	|	|--> List Images					-		docker image ls
 	|	|--> Remove Image (Only If No Running Container)	-		docker rmi `IMAGE_ID`
+	|	|--> Remote All Image					-		docker rmi $(docker images -a -q)
 	|	|--> Push An Image To Docker Hub Registry		-		docker push `IMAGE_ID`
 	|
 	|
@@ -320,7 +321,9 @@ DOCKER:
 	|	|--> Unpause Processes In Running Container		-		docker unpause `container_id`
 	|	|--> Restart Container					-		docker restart `container_id`
 	|	|--> Stop A Running Container				-		docker stop `container_id`
+	|	|--> Stop All Running Container				-		docker stop $(docker ps -aq)
 	|	|--> Remove a Container					-		docker rm `container_id`
+	|	|--> Remote a Container (While Running - Force Quit)	-		docker container rm -f `container_id`
 	|	|--> Create and Run a New Container			-		docker run -d --name `test_server` -p 5050:80 httpd
 	|	|--> GoTo Interactive Mode Using Bash			-		docker exec -it `test_server` bash
 	|	|--> Exit from Interactive Mode				-		exit
