@@ -1,0 +1,69 @@
+
+
+									 ------------------
+ -----------------------------------------------------------------------|  AWS - COMMANDS  |------------------------------------------------------------
+|									 ------------------								|
+|																			|
+|	----------------																|
+|------|  INSTALLATION  |-------------------------------------------------------------------------------------------------------------------------------
+|	----------------																|
+|																			|
+|	* Update Package Repository							-		sudo apt-get update				|
+|	* Install AWS Command Line Interface (CLI)					-		sudo apt-get install awscli			|
+|	* Check Whether AWS CLI is Installed Correctly					-		aws --version					|
+|																			|
+|																			|
+|	-----------------------																|
+|------|  BASIC-CONFIGURATION  |------------------------------------------------------------------------------------------------------------------------
+|	-----------------------																|
+|																			|
+|	* Configuration AWS								-		aws configure					|
+|	* Check Your Configuration Settings						-		git config --list				|
+|																			|
+|																			|
+|	---------------------------------------														|
+|------|  INSTALLING AWS SDK - BOTO3 (PYTHON)  |--------------------------------------------------------------------------------------------------------
+|	---------------------------------------														|
+|																			|
+|	* Check the Installion/Version of Python					-		python --version				|
+|	* Install BOTO3									-		pip install boto3				|
+|																			|
+|																			|
+|																			|
+|	 ---------------------------------														|
+|-------|  Creating S3-Bucket (Lab1 - s3) |-------------------------------------------------------------------------------------------------------------
+|	 ---------------------------------														|
+|																			|
+|	* More Information about S3 List Bucket CLI					-		aws s3 ls help					|
+|																			|
+|	* aws s3api create-bucket --bucket <bucket_name> --region <region_name> --create-bucket-configuration LocationConstraint=<region_name>		|
+|																			|
+|	-> Example	-	aws s3api create-bucket --bucket sr-2020-02-25-s3site --region us-west-2 --create-bucket-configuration \		|
+|					LocationConstraint=us-west-2											|
+|																			|
+|	-> Bucket Name	-	sr-2020-02-25-s3site													|
+|																			|
+|	-> Region	-	us-west-2														|
+|																			|
+|	-> Output	-	{ "Location": "https://sr-2020-02-25-s3site.s3.amazonaws.com/" }							|
+|																			|
+|																			|
+ -------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+							 ---------------------------------------------------------
+							|							  |
+ -------------------------------------------------------|  EXAMPLE RESOURCE FOR PRACTICING AWS			  |-------------------------------------
+|							|     (NOTE: WILL DELETE ALL PREVIOUS COMMIT HISTORY)	  |					|
+|							|							  |					|
+|							 ---------------------------------------------------------					|
+|																			|
+|	* Lab1 - Create S3-Bucket and upload files to it				-	wget https://aws-tc-largeobjects.			|
+|													s3-us-west-2.amazonaws.com/			|
+|													DEV-AWS-MO-Building_2.0/lab-1-s3.zip		|
+|																			|
+|																			|
+ -------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
