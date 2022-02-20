@@ -307,8 +307,10 @@ DOCKER:
 	|	|--> Pull An Image From Docker Hub			-		docker pull ubuntu
 	|	|--> List Images					-		docker image ls
 	|	|--> Remove Image (Only If No Running Container)	-		docker rmi `IMAGE_ID`
-	|	|--> Remote All Image					-		docker rmi $(docker images -a -q)
-	|	|--> Push An Image To Docker Hub Registry		-		docker push `IMAGE_ID`
+	|	|--> Remove All Image					-		docker rmi $(docker images -a -q)
+	|	|--> Remove Unwanted Images				-		docker image prune
+	|	|--> Push An Image To Docker Hub Registry		-		docker tag `IMAGE_ID` myRepoName/myImageName
+	|										docker push myRepoName/myImageName
 	|
 	|
 	|--> Container
@@ -324,15 +326,27 @@ DOCKER:
 	|	|--> Stop All Running Container				-		docker stop $(docker ps -aq)
 	|	|--> Remove a Container					-		docker rm `container_id`
 	|	|--> Remote a Container (While Running - Force Quit)	-		docker container rm -f `container_id`
-	|	|--> Create and Run a New Container			-		docker run -d --name `test_server` -p 5050:80 httpd
-	|	|--> GoTo Interactive Mode Using Bash			-		docker exec -it `test_server` bash
+	|	|--> Create and Run a Ubuntu Container Interactively	-		docker run -it ubuntu /bin/bash
+	|	|--> Create and Run a New Container (In Detach Mode)	-		docker run --name `name` -d `IMAGE_ID`
+	|	|--> Create and Run a New Container (In Port 8000)	-		docker run --name `name` -d -p 8000:8000 `IMAGE_ID`
+	|	|--> Publish Image in port 8000				-		docker run --publish 8000:8000 `IMAGE_ID`
+	|	|--> GoTo Interactive Mode Using Bash			-		docker exec -it `container_id` bash
 	|	|--> Exit from Interactive Mode				-		exit
 	|	|--> List the Changes In Container			-		docker diff `container_id`
 	|	|--> Save Your Own Modified Container			-		docker commit `container_id`
 	|	|--> Give Name For Your Container			-		docker tag `IMAGE_ID` myhttpd:v1
 	|	|--> Save Container as tar file				-		docker save myhttpd:v1 > my_own_container.tar
 	|	|--> Load A Local Container				-		docker load -i `my_own_container.tar`
-	|	|--> Create and Run a Ubuntu Container Interactively	-		docker run -it ubuntu /bin/bash
+	|
+	|
+	|--> docker-compose
+	|	|
+	|	|--> Build Image and Run Container			-		docker-compose up
+	|	|--> Build Image and Run Container (Custom name)	-		docker-compose -p `name` up
+	|	|--> Build Image and Run (To apply the changes)		-		docker-compose up --build
+	|	|--> Stop Container					-		docker-compose down
+	|	|--> Stop Container (Custom name)			-		docker-compose -p `name` down
+	|	|--> Run Container as bash				-		docker-compose run web bash
 	|
 	|
 	|--> Creating Own Image Using Docker File
@@ -346,8 +360,8 @@ DOCKER:
 		|									CMD ["echo", "Hello, Test Passed"]
 		|									"""
 		|--> Build a Docker Image				-		sudo docker build -t new_image .
-		|--> List Docker Images					-		docker images
-		|--> Create A New Container Using Created Container	-		docker run --name sample_ccontainer new_image
+		|--> List Docker Images					-		docker image ls
+		|--> Create A New Container Using Created Container	-		docker run --name sample_container new_image
 
 
 
