@@ -184,8 +184,9 @@
 |-------|  PUSH  |--------------------------------------------------------------------------------------------------------------------------------------
 |	 --------																	|
 |																			|
-|	* Update Local Changes to Remote Repository					-		git push					|
-|	* Update Local Changes to Remote Repository with newly created branch		-		git push -u origin <branch>			|
+|	* Push Local Changes to Remote Repository					-		git push					|
+|	* Push Local Changes to Remote Repository with Newly Created Branch		-		git push -u origin <branchname>			|
+|	* Push Certain Local Commit to Certain Branch on Remote Repository		-		git push origin <CommitSHA>:<remotebranchname>	|
 |																			|
 |																			|
 |	 -------------------------															|
