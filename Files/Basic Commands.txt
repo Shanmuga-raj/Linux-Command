@@ -365,6 +365,19 @@ DOCKER:
 
 
 
+HEROKU:
+```````
+	|
+	|--> Install Plugin to Upload Config Files (.env files)		-		heroku plugins:install heroku-config
+	|--> Add Heroku Remote to Existing Git Repo			-		heroku git:remote -a <heroku-app-name>
+	|--> Upload Config Files					-		heroku config:push
+	|--> List Config Variables					-		heroku config
+	|--> Upload to Heroku						-		git push heroku master
+	|--> Run Manage.py in heroku					-		heroku run python3 manage.py migrate
+	|--> Create a superuser for django app				-		heroku run python3 manage.py createsuperuser
+	|--> Restart heroku app						-		heroku restart
+
+
 ******************************************************************************************************************************************************************
 
 							DISK-PARTITION-MANAGEMENT:
@@ -544,11 +557,11 @@ LOG-FILES:
 								     ```````
 
 
-System Kernel Version                           			-		uname -r
+System Kernel Version							-		uname -r
 List Available Shell							-		cat /etc/shells
-Set Local Time Date (DualBoot)                 				-		timedatectl set-local-rtc 1
+Set Local Time Date (DualBoot)						-		timedatectl set-local-rtc 1
 Change Hostname								-		hostnamectl set-hostname newname
-Change Date                                     			-		sudo date -s "1999-02-05 00:00:00"
+Change Date								-		sudo date -s "1999-02-05 00:00:00"
 Reset Terminal Back to Default Preference				-		dconf reset -f /org/gnome/terminal/legacy/profiles:/
 OS Version								-		lsb_release -a (or) cat /etc/lsb-release
 Reboot Without Restarting System
@@ -561,7 +574,7 @@ Reboot Without Restarting System
 ACCOUNT:
 ````````
 	|
-	|--> Login as Root User                              		-		sudo su - (or) sudo -i
+	|--> Login as Root User						-		sudo su - (or) sudo -i
 	|--> Display $USER or $LOGIN					-		whoami
 	|--> Display info about logged-in user				-		f, finger
 	|--> split screen conversation for two users			-		talk
