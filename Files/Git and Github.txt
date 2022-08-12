@@ -219,3 +219,23 @@
 |	6. Force update your repository							-		git push -f origin master			|
 |																			|
  -------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+							 ---------------------------------------------------------
+ -------------------------------------------------------|  		    ADVANCED GIT COMMANDS		  |-------------------------------------
+|							 ---------------------------------------------------------					|
+|																			|
+|	1. Git Staging With Patch							-		git add -p (or) git add --patch			|
+|		|																	|
+|		|--> Stage this hunk [y, n, q, a, d, e, ?]?												|
+|			|																|
+|			|-> y		-	yes, Stage this Hunk (Add the Current Hunk to Staging Area)						|
+|			|-> n		-	no, Don't Stage this Hunk (Don't Add the Current Hunk to Staging Area)					|
+|			|-> q		-	quit, Don't Stage Current and Upcoming Hunk Just Quit (Previously Staged hunks will still be staged)	|
+|			|-> a		-	all, Stage Current and All Upcoming Hunks (Similar to `git add .` command)				|
+|			|-> d		-	delete, Don't Stage this Hunk or Any of the Later Hunks in the File (Remove all Hunks from staging)	|
+|			|-> e		-	edit, Edit Current Hunk Manually									|
+|			|-> s		-	split, Split the Current Hunk into Smaller Hunks							|
+|			|-> ?		-	Print Help, Will Expand and Show the Options in Detail							|
+|																			|
+ -------------------------------------------------------------------------------------------------------------------------------------------------------
