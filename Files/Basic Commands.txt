@@ -14,16 +14,17 @@ DIRECTORY:
 	|--> Print Working Directory					-		pwd
 	|--> Change Directory						-		cd
 	|--> Go To Previous Directory					-		cd ..
-	|--> Make Directory						-		mkdir xxx
+	|--> Create Directory						-		mkdir xxx
+	|--> Create along with missing parent Directories		-		mkdir -p xxx/yyy/aaa
 	|--> Change Directory (Relative path)				-		cd ../xxx
 	|--> Change Directory (Absolute path)				-		cd /xxx (or) cd ~/xxx
 	|--> Directory Name With Space					-		mkdir x\ x\ x (or) mkdir 'x x x'
 	|--> Copy (xxx File to Directory yyy)				-		cp xxx ~/yyy
-	|--> Recursive Copy (Dir xxx to Dir yyy)			-		cp -r xxx ~/yyy
+	|--> Recursive Copy (Dir xxx and it contents to Dir yyy)	-		cp -r xxx ~/yyy
 	|--> Copy Multiple file to Directory yyy			-		cp *.txt ~/yyy
 	|--> Move (xxx File to Directory yyy)				-		mv xxx ~/yyy
 	|--> Move Multiple file to Directory yyy			-		mv *.txt ~/yyy
-	|--> Remove Directory						-		rm -r xxx (or) rmdir xxx
+	|--> Remove Directory and their contents			-		rm -r xxx (or) rmdir xxx ( i - interactive mode)
 	|--> List File in Directory					-		ls (or) dir ( l - additional information, a- hidden files)
 
 
@@ -53,12 +54,31 @@ FILE:
 	|--> Standard Input From File					-		cat < xxx.txt (same as cat command)
 	|--> Search word in File (xxx.txt)				-		grep word xxx.txt
 	|--> Remove File						-		rm xxx
-	|--> Count Character in File					-		wc xxx.txt
+	|--> Count line, words and Character in File			-		wc xxx.txt
+	|--> Count line in a file					-		wc -l xxx.txt
+	|--> Count Word in a file					-		wc -w xxx.txt
+	|--> Count characters in a file					-		wc -c xxx.txt
 	|--> Rename File						-		mv oldname newname
 	|--> Create Softlink of File					-		ln -s originalfname newfname (copy files without additional disk usage. 
 	|												Deleting file will delete every file)
 	|--> Create Hardlink of File					-		ln originalfname newfname (copy files without additional disk usage. 
 	|												Deleting copy wont affect other file)
+	|
+	|
+	|--> REDIRECTION OUTPUT TO FILE:
+	|    ```````````````````````````
+	|	|
+	|	|--> Redirect stdout to overwrite a file		-		date > current_date.txt
+	|	|--> Redirect stdout to append a file			-		ls >> current_date.txt
+	|	|--> Redirect stderr to overwrite a file		-		find /etc -name passwd 2> error.txt
+	|	|--> Redirect stderr to append a file			-		whoami 2>> error.txt
+	|	|--> Redirect stdout and stderr to different file	-		find /etc -name passwd > output.txt 2> error.txt
+	|	|--> Redirect stdout to file and discard stderr		-		find /etc -name passwd > output.txt 2> /dev/null
+	|	|--> Redirect both stdout and stderr in single file	-		find /etc -name passwd &> all-message-output.txt.txt  (or) 
+	|	|										find /etc -name passwd > all-message-output.txt.txt 2>&1
+	|	|--> Redirect and append stdout stderr in single file	-		find /etc -name passwd &>> all-message-output.txt.txt (or) 
+	|	|										find /etc -name passwd >> all-message-output.txt 2>&1
+	|	|--> Save output to file also show output in screen	-		ls -l | tee output.txt
 	|
 	|
 	|--> PERMISSION:
@@ -464,6 +484,7 @@ DISK-USAGE:
 ```````````
 	|
 	|--> Disk Utilization						-		du -h
+	|--> List Directories that are on different file system		-		df
 	|--> Free Space Available					-		df -h
 
 
@@ -479,7 +500,7 @@ PROCESS:
 	|--> RUNNING-PROCESS:
 	|    ````````````````
 	|	|
-	|	|--> Running Process					-		ps
+	|	|--> Running Process					-		ps ( a - all processes, u - user associated with process)
 	|	|--> All Running Process				-		ps -f
 	|	|--> All Running Process Except Kernel			-		ps -ef
 	|	|--> Running Including Background			-		ps -x
@@ -643,7 +664,9 @@ REPAIRING-BOOT-AFTER-INSTALLING-LINUX-AND-WINDOWS (DUAL-BOOT):
 BASIC-COMMANDS:
 ````````````````
 	|
-	|--> Displays Information about User				-		who
+	|--> Displays Detailed Information about User			-		who
+	|--> Display user name						-		whoami
+	|--> Display information about current loggedin user		-		id
 	|--> Extended who command					-		w
 	|--> Clear Terminal						-		clear
 	|--> Terminal History						-		history
