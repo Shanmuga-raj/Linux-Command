@@ -87,15 +87,29 @@ FILE:
 	|	|--> Change Mode					-		chmod
 	|	|--> Change Owner					-		chown
 	|	|--> Change Group					-		chgrp
-	|	|--> Add Read Permission				-		chmod u+x filename
-	|	|--> Remove Read Permission				-		chmod u-x filename
-	|	|--> Change Owner Of The File				-		sudo chown usrname filename
-	|	|--> Change Group Of The File				-		sudo chgrp groupname filename
-	|				
+	|	|--> Add Read Permission				-		chmod u+r filename
+	|	|--> Remove Read Permission				-		chmod u-r filename
+	|	|--> Add Read and Write Permission for group and other	-		chmod go+rw filename
+	|	|--> Set Read and Write Permission only for user	-		chmod 600 filename
+	|	|--> Change Owner of the file				-		chown usrname filename
+	|	|--> Change Group of the file				-		chown :groupname filename
+	|	|--> Change Owner and Group of the file			-		chown usrname:groupname filename
+	|	|--> Change Group of the file				-		chgrp groupname filename
+	|	|--> Add setuid to the file				-		chmod u+s filename
+	|	|--> Remove setgid from file				-		chmod g-s filename
+	|	|--> Setuid bit and give all permission to all		-		chmod 4777 filename
+	|	|--> Disable Write permisson for group and other	-		umask 0022
+	|	|--> Disable Read permission for user and group		-		umask 0440
+	|
+	|
 	|			NOTE:
 	|			`````
-	|				(u - Owner,	g - Group,	o - Other)
+	|				(+ - add,	- - remove,	= - set exactly)
+	|				(u - User,	g - Group,	o - Other,	a - all)
+	|				(r - read,	w - write,	x - execute,	X - Spc Exec)
 	|				(1 - Execute,	2 - Write,	4 - Read)
+	|				(1 - sticky,	2 - setgid,	4 - setuid)
+	|				(u+s - setuid,	g+s - setgid,	o+t - sticky)
 	|
 	|
 	|--> ARCHIVE-UNPACK:
@@ -164,7 +178,7 @@ PACKAGES:
 	|											initial-status.gz | sed -n 's/^Package: //p' | sort -u)
 	|--> List Installed Packages					-		apt list --manual-installed
 	|--> Reinstall Packages						-		sudo apt install --reinstall PACKAGE
-	|--> Backup Apps and PPAs					-		sudo apt-add-repository –y ppa:teejee2008/ppa
+	|--> Backup Ap  and PPAs					-		sudo apt-add-repository –y ppa:teejee2008/ppa
 	|											sudo apt-get install aptik
 	|--> Create a Snapshot of current version			-		sudo apt-add-repository -y ppa:teejee2008/ppa
 												sudo apt-get install timeshift
@@ -508,11 +522,16 @@ PROCESS:
 	|	|--> Show Process Resource				-		top (q - exit)
 	|	|--> Amount of Free Memory				-		free
 	|	|--> Duration of uptime					-		uptime
-	|	|--> Opened Files&Process Using it			-		lsof
+	|	|--> Opened Files & Process Using it			-		lsof
+	|	|--> No of CPU's on a system				-		lscpu
 	|	|--> Shows network status				-		netstat
 	|	|--> Show Virtual Memory Status				-		vmstat
 	|	|--> Show Input/Output Status				-		iostat
 	|	|--> Report System Activity				-		sar
+	|	|--> Run job in background				-		sleep 10000 &
+	|	|--> Display list of jobs				-		jobs
+	|	|--> Bring background job to foreground			-		fg %jobNumber
+	|	|--> Start running the suspended process/job		-		bg %jobNumber
 	|
 	|
 	|--> TERMINATION:
@@ -542,24 +561,39 @@ REMOTE-CONNECTION:
 	|
 	|--> Install SSH Client						-		sudo apt-get install openssh-client
 	|--> Install SSH Server						-		sudo apt-get install openssh-server
-		|
-		|--> See Local Host					-		sudo nano /etc/hosts (cd to Desktop)
-		|--> Name of Host or Domain				-		nslookup
-		|--> Connect To Remote Network				-		ssh -i ~/xxx/yyy/zzz.pem username@IPAddress
-		|--> Send Files Through SSH				-		scp /xxx/yyy/zzz.txt username@IPAddress
-
-
-
-SERVICES:
-`````````
+	|	|
+	|	|--> See Local Host					-		sudo nano /etc/hosts (cd to Desktop)
+	|	|--> Name of Host or Domain				-		nslookup
+	|	|--> Connect To Remote Network				-		ssh -i ~/xxx/yyy/zzz.pem username@IPAddress
+	|	|--> Send Files Through SSH				-		scp /xxx/yyy/zzz.txt username@IPAddress
 	|
-	|--> Start The Service						-		sudo service 'servicename start
-	|--> Check The Status Of Service				-		sudo service 'servicename status
-	|--> Services that are Installed				-		sudo systemctl (q - quit)
-	|--> Services that are Running					-		sudo systemctl --state=running (q - quit)
-	|--> Services that are Failed					-		sudo systemctl --state=failes (q - quit)
-	|--> Restart The Service					-		sudo service 'servicename restart
-	|--> Stop The Service						-		sudo service 'servicename stop
+	|--> Generate SSH key						-		ssh-keygen
+	|--> Generate passphrase protected SSH key			-		ssh-keygen -f .ssh/key-with-pass
+	|--> Share the Public key					-		ssh-copy-id -i /ssh/key-with-pass.pub user@remotehost
+	
+
+
+SERVICES AND DAEMONS:
+`````````````````````
+	|
+	|--> Services that are Installed				-		systemctl
+	|--> List all installed service units				-		systemctl list-units --type=service
+	|--> List all socket units both active and inactive		-		systemctl list-units --type=socket --all
+	|--> List enabled or disabled states of all service units	-		systemctl list-unit-files --type=service
+	|--> Services that are Running					-		systemctl --state=running
+	|--> Services that are Failed					-		systemctl --state=failes
+	|--> Display status of sshd service				-		systemctl status sshd
+	|--> Enable sshd service to start at boot			-		systemctl enable sshd.service
+	|--> Check whether sshd service is enabled to start at boot	-		systemctl is-enabled sshd
+	|--> Disable sshd service from starting automatically		-		systemctl disable --noew sshd.service
+	|--> Check whether sshd service is active			-		systemctl is-active sshd
+	|--> Start sshd service						-		systemctl start sshd
+	|--> Stop sshd service						-		systemctl stop sshd.service
+	|--> Restart sshd service					-		systemctl restart sshd.service
+	|--> Reload sshd service					-		systemctl reload sshd.service
+	|--> Display Hierarchy mapping of dependencies of sshd service	-		systemctl list-dependencies sshd.service
+	|--> Mask sendmail service					-		systemctl mask sendmail.service
+	|--> Unmask sendmail service					-		systemctl unmask sendmail
 
 
 
@@ -605,10 +639,24 @@ ACCOUNT:
 	|--> Executes a command, or login, on a remote host		-		rsh (or) remsh
 	|--> Displays filesystem statistics				-		df
 	|--> Set a New password						-		passwd usrname
-	|--> Force Local User to Set New Password			-		sudo passwd -e usrname
-	|--> Add new Local User						-		sudo useradd usrname
-	|--> Remove Local User						-		sudo userdel usrname
-
+	|--> Force Local User to Set New Password			-		passwd -e usrname
+	|--> Add new Local User						-		useradd usrname
+	|--> Remove Local User						-		userdel usrname
+	|--> Create new System group					-		groupadd -r grpname
+	|--> Create new syetem group with assign GID manually		-		groupadd -g 10000 grpname (1000 - is the GID)
+	|--> Modify Existing group name					-		groupmod -n oldgrp newgrp
+	|--> Change GID for Existing Group				-		groupmod -g 20000 grpname
+	|--> Delete Group						-		groupdel grpname
+	|--> Change user Primary Group					-		usermod -g grpname usrname
+	|--> Add user to supplementary Group				-		usermod -aG grpname usrname / useradd -G grpname usrname
+	|--> Lock user account						-		usermod -L usrname
+	|--> Unlock user account					-		usermod -U usrname
+	|--> Expire user account					-		chage -E YYYY-DD-MM usrname
+	|--> Lock and expire user account				-		usermod -L -e YYYY-MM-DD usrname
+	|--> Temporarily change User Primary Group			-		newgrp grpname
+	|--> Configure Password Aging					-		chage -m 0 -M 90 -W 7 -I 14 usrname (-m min, -M max, -W warn, -I Inactv)
+	|--> Trigger change password on next login			-		chage -d 0 usrname
+	|--> 
 
 
 RESETTING GNOME:
